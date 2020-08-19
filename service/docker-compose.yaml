@@ -1,0 +1,140 @@
+version: '3.7'
+
+# service containers
+services:
+
+  watchtower:
+    image: containrrr/watchtower:latest
+    restart: always
+    volumes: 
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+  openldap:
+    image: osixia/openldap:latest
+    restart: always
+    networks:
+      - default
+      - dev
+      - cloud
+      - media
+    environment:
+      - TZ=America/New_York
+      - LDAP_TLS=false
+      - LDAP_READONLY_USER=true
+      - LDAP_ORGANISATION=box
+      - LDAP_DOMAIN=viggy96.me
+    volumes:
+      - /tank/container_data/openldap/database:/var/lib/ldap
+      - /tank/container_data/openldap/config:/etc/ldap/slapd.d
+    expose:
+       - 389
+
+  traefik:
+    image: traefik:latest
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - default
+      - dev
+      - cloud
+      - media
+    environment:
+      - TZ=America/New_York
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik.yaml:/traefik.yaml:ro
+      - ./config.yaml:/config.yaml:ro
+      - ./acme.json:/acme.json
+    ports:
+      - 80:80
+      - 443:443
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.viggy96.me`)"
+      - "traefik.http.routers.traefik.middlewares=private@file"
+      - "traefik.http.routers.traefik.tls=true"
+      - "traefik.http.routers.traefik.tls.certresolver=http"
+        #- "traefik.http.routers.traefik.tls.options=default@file"
+      - "traefik.http.routers.traefik.service=api@internal"
+
+  phpldapadmin:
+    image: osixia/phpldapadmin:latest
+    restart: always
+    environment:
+      - TZ=America/New_York
+      - PHPLDAPADMIN_LDAP_HOSTS=openldap
+      - PHPLDAPADMIN_HTTPS=false
+    expose:
+      - 80
+    depends_on:
+      - openldap
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.phpldapadmin.loadbalancer.server.port=80"
+      - "traefik.http.routers.phpldapadmin.rule=Host(`phpldapadmin.viggy96.me`)"
+      - "traefik.http.routers.phpldapadmin.middlewares=private@file"
+      - "traefik.http.routers.phpldapadmin.tls=true"
+      - "traefik.http.routers.phpldapadmin.tls.certresolver=http"
+
+  www:
+    image: viggy96/resume-website:latest
+    restart: always
+    entrypoint: "hugo server \ 
+                  --baseURL https://www.viggy96.me/ \
+                  --environment production \
+                  --bind 0.0.0.0 \
+                  --port 80"
+    expose:
+      - 80 
+    labels: 
+      - "traefik.enable=true"
+      - "traefik.http.services.www.loadbalancer.server.port=80"
+      - "traefik.http.routers.www.rule=Host(`www.viggy96.me`)"
+      - "traefik.http.routers.www.middlewares=secure@file"
+      - "traefik.http.routers.www.tls=true"
+      - "traefik.http.routers.www.tls.certresolver=http"
+
+  wireguard:
+    image: perara/wg-manager:latest
+    restart: always
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - TZ=America/New_York
+      - HOST=0.0.0.0
+      - PORT=8888
+      - ADMIN_USERNAME=admin
+      - ADMIN_PASSWORD=admin
+      - WEB_CONCURRENCY=1 
+    volumes:
+      - /tank/container_data/wireguard:/config
+    expose: 
+      - 8888
+    ports:
+      - 51800-51900:51800-51900/udp 
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.wireguard.loadbalancer.server.port=8888"
+      - "traefik.http.routers.wireguard.rule=Host(`wireguard.viggy96.me`)"
+      - "traefik.http.routers.wireguard.middlewares=private@file"
+      - "traefik.http.routers.wireguard.tls=true"
+      - "traefik.http.routers.wireguard.tls.certresolver=http"
+      
+
+# external networks 
+networks:
+
+  cloud:
+    external:
+      name: cloud_default
+      
+  media:
+    external:
+      name: media_default
+
+  dev:
+    external:
+      name: dev_default
+

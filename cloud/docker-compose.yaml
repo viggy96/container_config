@@ -1,0 +1,63 @@
+version: '3.7'
+
+# nextcloud containers
+services:
+
+  db:
+    image: mariadb:latest
+    restart: always
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    volumes:
+      - /tank/container_data/nextcloud_db:/var/lib/mysql
+    env_file:
+      - db.env 
+
+  redis:
+    image: redis:latest
+    restart: always
+
+  cron:
+    image: nextcloud:production
+    restart: always
+    volumes:
+      - /tank/container_data/nextcloud_app:/var/www/html
+      - /tank/cloud/nextcloud/data:/var/www/html/data
+    entrypoint: /cron.sh
+    depends_on:
+      - db
+      - redis
+
+  nextcloud:
+    image: nextcloud:production
+    restart: always
+    volumes:
+      - /tank/container_data/nextcloud_app:/var/www/html
+      - /tank/cloud/nextcloud/data:/var/www/html/data
+      - /tank/cloud/videos:/videos:ro
+      - /tank/cloud/music:/music
+      - /tank/cloud/books:/books
+      - /tank/downloads/:/downloads
+    environment:
+      - PUID=33
+      - PGID=33
+      - MYSQL_HOST=db
+      - REDIS_HOST=redis
+      - NEXTCLOUD_TABLE_PREFIX='oc_'
+    env_file:
+      - db.env
+    depends_on:
+      - db
+      - redis
+    expose:
+      - 80
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.nextcloud.loadbalancer.server.port=80"
+      - "traefik.http.routers.nextcloud.rule=Host(`nextcloud.viggy96.me`)"
+      - "traefik.http.routers.nextcloud.tls=true"
+      - "traefik.http.routers.nextcloud.tls.certresolver=http"
+      - "traefik.http.middlewares.nextcloud-rep.redirectregex.regex=https://(.*)/.well-known/(card|cal)dav"
+      - "traefik.http.middlewares.nextcloud-rep.redirectregex.replacement=https://$$1/remote.php/dav/"
+      - "traefik.http.middlewares.nextcloud-rep.redirectregex.permanent=true"
+      - "traefik.http.routers.nextcloud.middlewares=nextcloud-rep,secure@file"
+

@@ -1,0 +1,172 @@
+version: '3.7'
+
+# media containers
+services:
+
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    restart: always
+    environment:
+      - PUID=33
+      - PGID=33
+      - TZ=America/New_York
+    devices:
+      - /dev/dri
+    volumes:
+      - /tmp/jellyfin:/transcodes
+      - /tank/container_data/jellyfin_config:/config
+      - /tank/container_data/jellyfin_cache:/cache
+      - /tank/cloud/videos/:/media/video
+      - /tank/cloud/music:/media/music
+    expose:
+      - 8096
+    ports:
+      - 1900:1900/udp
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.jellyfin.loadbalancer.server.port=8096"
+      - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.viggy96.me`)"
+      - "traefik.http.routers.jellyfin.middlewares=secure@file"
+      - "traefik.http.routers.jellyfin.tls=true"
+      - "traefik.http.routers.jellyfin.tls.certresolver=http"
+
+  deluge:
+    image: linuxserver/deluge:latest
+    restart: always
+    environment:
+      - PUID=33
+      - PGID=33
+      - UMASK_SET=022
+      - TZ=America/New_York
+    volumes:
+      - /tank/container_data/deluged:/config
+      - /tank/downloads:/downloads
+    expose:
+      - 8112
+    ports:
+      - 65525-65535:65525-65535
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.deluge.loadbalancer.server.port=8112"
+      - "traefik.http.routers.deluge.rule=Host(`deluge.viggy96.me`)"
+      - "traefik.http.routers.deluge.middlewares=private@file"
+      - "traefik.http.routers.deluge.tls=true"
+      - "traefik.http.routers.deluge.tls.certresolver=http"
+
+  nzbget:
+    image: linuxserver/nzbget:latest
+    restart: always
+    environment:
+      - PUID=33
+      - PGID=33
+      - UMASK_SET=022
+      - TZ=America/New_York
+    volumes:
+      - /tank/container_data/nzbget:/config
+      - /tank/downloads/nzbget:/downloads
+    expose:
+      - 6789
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.nzbget.loadbalancer.server.port=6789"
+      - "traefik.http.routers.nzbget.rule=Host(`nzbget.viggy96.me`)"
+      - "traefik.http.routers.nzbget.middlewares=private@file"
+      - "traefik.http.routers.nzbget.tls=true"
+      - "traefik.http.routers.nzbget.tls.certresolver=http"
+
+  jackett:
+    image: linuxserver/jackett:latest
+    restart: always
+    environment:
+      - PUID=33
+      - PGID=33
+      - TZ=America/New_York
+    volumes:
+      - /tank/container_data/jackett:/config
+      - /tank/downloads:/downloads
+    expose:
+      - 9117
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.jackett.loadbalancer.server.port=9117"
+      - "traefik.http.routers.jackett.rule=Host(`jackett.viggy96.me`)"
+      - "traefik.http.routers.jackett.middlewares=private@file"
+      - "traefik.http.routers.jackett.tls=true"
+      - "traefik.http.routers.jackett.tls.certresolver=http"
+
+
+  sonarr:
+    image: linuxserver/sonarr:preview
+    restart: always
+    environment:
+      - PUID=33
+      - PGID=33
+      - TZ=America/New_York
+    volumes:
+      - /tank/container_data/sonarr:/config
+      - /tank/cloud/videos/TV:/tv
+      - /tank/downloads:/downloads
+    expose:
+      - 8989
+    depends_on:
+      - deluge
+      - nzbget
+      - jackett
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.sonarr.loadbalancer.server.port=8989"
+      - "traefik.http.routers.sonarr.rule=Host(`sonarr.viggy96.me`)"
+      - "traefik.http.routers.sonarr.middlewares=private@file"
+      - "traefik.http.routers.sonarr.tls=true"
+      - "traefik.http.routers.sonarr.tls.certresolver=http"
+
+  radarr:
+    image: linuxserver/radarr:preview
+    restart: always
+    environment:
+      - PUID=33
+      - PGID=33
+      - TZ=America/New_York
+    volumes:
+      - /tank/container_data/radarr:/config
+      - /tank/cloud/videos/Movies:/movies
+      - /tank/downloads:/downloads
+    expose:
+      - 7878
+    depends_on:
+      - deluge
+      - nzbget
+      - jackett
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.radarr.loadbalancer.server.port=7878"
+      - "traefik.http.routers.radarr.rule=Host(`radarr.viggy96.me`)"
+      - "traefik.http.routers.radarr.middlewares=private@file"
+      - "traefik.http.routers.radarr.tls=true"
+      - "traefik.http.routers.radarr.tls.certresolver=http"
+
+  lidarr:
+    image: linuxserver/lidarr:latest
+    restart: always
+    environment:
+      - PUID=33
+      - PGID=33
+      - TZ=America/New_York
+    volumes:
+      - /tank/container_data/lidarr:/config
+      - /tank/cloud/music:/music
+      - /tank/downloads:/downloads
+    expose:
+      - 8686
+    depends_on:
+      - deluge
+      - nzbget
+      - jackett
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.lidarr.loadbalancer.server.port=8686"
+      - "traefik.http.routers.lidarr.rule=Host(`lidarr.viggy96.me`)"
+      - "traefik.http.routers.lidarr.middlewares=private@file"
+      - "traefik.http.routers.lidarr.tls=true"
+      - "traefik.http.routers.lidarr.tls.certresolver=http"
+

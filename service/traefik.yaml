@@ -1,0 +1,31 @@
+api:
+  dashboard: true
+  debug: true
+
+log:
+  level: PANIC 
+
+accessLog: {}
+
+entryPoints:
+  http:
+    address: ":80"
+  https:
+    address: ":443"
+
+providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    exposedByDefault: false
+  file:
+    filename: "/config.yaml"
+    watch: true
+
+certificatesResolvers:
+  http:
+    acme:
+      email: "admin@viggy96.me"
+      storage: "/acme.json"
+      httpChallenge:
+        entryPoint: http
+
