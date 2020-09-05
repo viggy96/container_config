@@ -44,9 +44,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./traefik.yaml:/traefik.yaml:ro
-      - ./config.yaml:/config.yaml:ro
-      - ./acme.json:/acme.json
+      - ./traefik/:/etc/traefik
     ports:
       - 80:80
       - 443:443

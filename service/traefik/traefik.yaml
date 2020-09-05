@@ -18,14 +18,14 @@ providers:
     endpoint: "unix:///var/run/docker.sock"
     exposedByDefault: false
   file:
-    filename: "/config.yaml"
+    filename: "/etc/traefik/config.yaml"
     watch: true
 
 certificatesResolvers:
   http:
     acme:
       email: "admin@viggy96.me"
-      storage: "/acme.json"
+      storage: "/etc/traefik/acme.json"
       httpChallenge:
         entryPoint: http
 
