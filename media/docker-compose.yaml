@@ -20,8 +20,6 @@ services:
       - /tank/cloud/music:/media/music
     expose:
       - 8096
-    ports:
-      - 1900:1900/udp
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.jellyfin.loadbalancer.server.port=8096"
