@@ -26,7 +26,9 @@ services:
       - "traefik.enable=true"
       - "traefik.http.services.jellyfin.loadbalancer.server.port=8096"
       - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.viggy96.me`)"
-      - "traefik.http.routers.jellyfin.middlewares=secure@file"
+      - "traefik.http.middlewares.jellyfin-rep.headers.customrequestheaders.X-RealIP=192.168.1.1"
+      - "treafik.http.middlewares.jellyfin-rep.headers.customrequestheaders.X-Forwarded-For=192.168.1.1"
+      - "traefik.http.routers.jellyfin.middlewares=jellyfin-rep,secure@file"
       - "traefik.http.routers.jellyfin.tls=true"
       - "traefik.http.routers.jellyfin.tls.certresolver=http"
 
