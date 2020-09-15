@@ -28,7 +28,7 @@ services:
       - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.viggy96.me`)"
       - "traefik.http.routers.jellyfin.middlewares=secure@file"
       - "traefik.http.routers.jellyfin.tls=true"
-      - "traefik.http.routers.jellyfin.tls.certresolver=http"
+      - "traefik.http.routers.jellyfin.tls.certresolver=letsencrypt"
 
   deluge:
     image: linuxserver/deluge:latest
@@ -51,7 +51,7 @@ services:
       - "traefik.http.routers.deluge.rule=Host(`deluge.viggy96.me`)"
       - "traefik.http.routers.deluge.middlewares=private@file"
       - "traefik.http.routers.deluge.tls=true"
-      - "traefik.http.routers.deluge.tls.certresolver=http"
+      - "traefik.http.routers.deluge.tls.certresolver=letsencrypt"
 
   nzbget:
     image: linuxserver/nzbget:latest
@@ -72,7 +72,7 @@ services:
       - "traefik.http.routers.nzbget.rule=Host(`nzbget.viggy96.me`)"
       - "traefik.http.routers.nzbget.middlewares=private@file"
       - "traefik.http.routers.nzbget.tls=true"
-      - "traefik.http.routers.nzbget.tls.certresolver=http"
+      - "traefik.http.routers.nzbget.tls.certresolver=letsencrypt"
 
   jackett:
     image: linuxserver/jackett:latest
@@ -92,7 +92,7 @@ services:
       - "traefik.http.routers.jackett.rule=Host(`jackett.viggy96.me`)"
       - "traefik.http.routers.jackett.middlewares=private@file"
       - "traefik.http.routers.jackett.tls=true"
-      - "traefik.http.routers.jackett.tls.certresolver=http"
+      - "traefik.http.routers.jackett.tls.certresolver=letsencrypt"
 
 
   sonarr:
@@ -118,7 +118,7 @@ services:
       - "traefik.http.routers.sonarr.rule=Host(`sonarr.viggy96.me`)"
       - "traefik.http.routers.sonarr.middlewares=private@file"
       - "traefik.http.routers.sonarr.tls=true"
-      - "traefik.http.routers.sonarr.tls.certresolver=http"
+      - "traefik.http.routers.sonarr.tls.certresolver=letsencrypt"
 
   radarr:
     image: linuxserver/radarr:preview
@@ -143,7 +143,7 @@ services:
       - "traefik.http.routers.radarr.rule=Host(`radarr.viggy96.me`)"
       - "traefik.http.routers.radarr.middlewares=private@file"
       - "traefik.http.routers.radarr.tls=true"
-      - "traefik.http.routers.radarr.tls.certresolver=http"
+      - "traefik.http.routers.radarr.tls.certresolver=letsencrypt"
 
   lidarr:
     image: linuxserver/lidarr:latest
@@ -168,5 +168,5 @@ services:
       - "traefik.http.routers.lidarr.rule=Host(`lidarr.viggy96.me`)"
       - "traefik.http.routers.lidarr.middlewares=private@file"
       - "traefik.http.routers.lidarr.tls=true"
-      - "traefik.http.routers.lidarr.tls.certresolver=http"
+      - "traefik.http.routers.lidarr.tls.certresolver=letsencrypt"
 

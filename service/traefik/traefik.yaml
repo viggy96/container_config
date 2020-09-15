@@ -22,7 +22,7 @@ providers:
     watch: true
 
 certificatesResolvers:
-  http:
+  letsencrypt:
     acme:
       email: "admin@viggy96.me"
       storage: "/etc/traefik/acme.json"

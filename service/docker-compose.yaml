@@ -53,8 +53,7 @@ services:
       - "traefik.http.routers.traefik.rule=Host(`traefik.viggy96.me`)"
       - "traefik.http.routers.traefik.middlewares=private@file"
       - "traefik.http.routers.traefik.tls=true"
-      - "traefik.http.routers.traefik.tls.certresolver=http"
-        #- "traefik.http.routers.traefik.tls.options=default@file"
+      - "traefik.http.routers.traefik.tls.certresolver=letsencrypt"
       - "traefik.http.routers.traefik.service=api@internal"
 
   phpldapadmin:
@@ -74,7 +73,7 @@ services:
       - "traefik.http.routers.phpldapadmin.rule=Host(`phpldapadmin.viggy96.me`)"
       - "traefik.http.routers.phpldapadmin.middlewares=private@file"
       - "traefik.http.routers.phpldapadmin.tls=true"
-      - "traefik.http.routers.phpldapadmin.tls.certresolver=http"
+      - "traefik.http.routers.phpldapadmin.tls.certresolver=letsencrypt"
 
   www:
     image: viggy96/resume-website:latest
@@ -92,7 +91,7 @@ services:
       - "traefik.http.routers.www.rule=Host(`www.viggy96.me`)"
       - "traefik.http.routers.www.middlewares=secure@file"
       - "traefik.http.routers.www.tls=true"
-      - "traefik.http.routers.www.tls.certresolver=http"
+      - "traefik.http.routers.www.tls.certresolver=letsencrypt"
 
   wireguard:
     image: perara/wg-manager:latest
@@ -118,7 +117,7 @@ services:
       - "traefik.http.routers.wireguard.rule=Host(`wireguard.viggy96.me`)"
       - "traefik.http.routers.wireguard.middlewares=private@file"
       - "traefik.http.routers.wireguard.tls=true"
-      - "traefik.http.routers.wireguard.tls.certresolver=http"
+      - "traefik.http.routers.wireguard.tls.certresolver=letsencrypt"
       
 
 # external networks 
