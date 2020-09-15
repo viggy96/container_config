@@ -55,6 +55,10 @@ services:
       - "traefik.http.routers.traefik.tls=true"
       - "traefik.http.routers.traefik.tls.certresolver=letsencrypt"
       - "traefik.http.routers.traefik.service=api@internal"
+      - "traefik.http.middlewares.https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.redirects.rule.hostregexp(`{host:.+}`)"
+      - "traefik.http.routers.redirects.entrypoints=web"
+      - "traefik.http.routers.redirects.middlewares=https-redirect"
 
   phpldapadmin:
     image: osixia/phpldapadmin:latest
