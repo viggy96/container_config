@@ -27,5 +27,5 @@ certificatesResolvers:
       email: "admin@viggy96.me"
       storage: "/etc/traefik/acme.json"
       httpChallenge:
-        entryPoint: http
+        entryPoint: web 
 
