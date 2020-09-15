@@ -49,12 +49,6 @@ services:
       - 80:80
       - 443:443
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.traefik.rule=Host(`traefik.viggy96.me`)"
-      - "traefik.http.routers.traefik.middlewares=private@file"
-      - "traefik.http.routers.traefik.tls=true"
-      - "traefik.http.routers.traefik.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.traefik.service=api@internal"
       - "traefik.http.middlewares.https-redirect.redirectscheme.scheme=https"
       - "traefik.http.routers.redirects.rule.hostregexp(`{host:.+}`)"
       - "traefik.http.routers.redirects.entrypoints=web"
