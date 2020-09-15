@@ -8,9 +8,9 @@ log:
 accessLog: {}
 
 entryPoints:
-  http:
+  web:
     address: ":80"
-  https:
+  websecure:
     address: ":443"
 
 providers:
