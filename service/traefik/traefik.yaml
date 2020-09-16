@@ -3,7 +3,7 @@ api:
   debug: true
 
 log:
-  level: DEBUG 
+  level: INFO 
 
 accessLog: {}
 
