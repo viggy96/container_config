@@ -38,8 +38,8 @@ services:
       - /tank/cloud/books:/books
       - /tank/downloads/:/downloads
     environment:
-      - PUID=33
-      - PGID=33
+      - UID=33
+      - GID=33
       - MYSQL_HOST=db
       - REDIS_HOST=redis
       - NEXTCLOUD_TABLE_PREFIX='oc_'
