@@ -121,7 +121,7 @@ services:
       - "traefik.http.routers.sonarr.tls.certresolver=letsencrypt"
 
   radarr:
-    image: linuxserver/radarr:preview
+    image: linuxserver/radarr:nightly
     restart: always
     environment:
       - PUID=33
