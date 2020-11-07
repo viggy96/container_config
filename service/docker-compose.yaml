@@ -82,11 +82,9 @@ services:
   www:
     image: viggy96/resume-website:latest
     restart: always
-    entrypoint: "hugo server \ 
-                  --baseURL https://www.viggy96.me/ \
-                  --environment production \
-                  --bind 0.0.0.0 \
-                  --port 80"
+    environment:
+      - ENV=production
+      - PORT=80 
     expose:
       - 80 
     labels: 
