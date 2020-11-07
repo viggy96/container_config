@@ -43,8 +43,8 @@ services:
       - /tank/downloads:/downloads
     expose:
       - 8112
-    ports:
-      - 65525-65535:65525-65535
+        #ports:
+      #- 65525-65535:65525-65535
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.deluge.loadbalancer.server.port=8112"
@@ -52,6 +52,29 @@ services:
       - "traefik.http.routers.deluge.middlewares=private@file"
       - "traefik.http.routers.deluge.tls=true"
       - "traefik.http.routers.deluge.tls.certresolver=letsencrypt"
+
+  qbittorrent:
+    image: linuxserver/qbittorrent:latest
+    restart: always
+    environment:
+      - PUID=33
+      - PGID=33
+      - UMASK_SET=022
+      - TZ=America/New_York
+    volumes:
+      - /tank/container_data/qbittorrent:/config
+      - /tank/downloads:/downloads
+    expose:
+      - 8112
+    ports:
+      - 65525-65535:65525-65535
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.qbittorrent.loadbalancer.server.port=8080"
+      - "traefik.http.routers.qbittorrent.rule=Host(`qbittorrent.viggy96.me`)"
+      - "traefik.http.routers.qbittorrent.middlewares=private@file"
+      - "traefik.http.routers.qbittorrent.tls=true"
+      - "traefik.http.routers.qbittorrent.tls.certresolver=letsencrypt"
 
   nzbget:
     image: linuxserver/nzbget:latest
