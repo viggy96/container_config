@@ -43,6 +43,9 @@ services:
       - /tank/downloads:/downloads
     expose:
       - 8112
+    ports:
+      - 1080:1080/udp
+      - 65280-65535:65280-65535
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.deluge.loadbalancer.server.port=8112"
