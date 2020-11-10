@@ -129,6 +129,7 @@ services:
     expose:
       - 8989
     depends_on:
+      - qbittorrent
       - deluge
       - nzbget
       - jackett
@@ -154,6 +155,7 @@ services:
     expose:
       - 7878
     depends_on:
+      - qbittorrent
       - deluge
       - nzbget
       - jackett
@@ -179,9 +181,8 @@ services:
     expose:
       - 6767
     depends_on:
-      - deluge
-      - nzbget
-      - jackett
+      - sonarr
+      - radarr
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.bazarr.loadbalancer.server.port=6767"
