@@ -165,6 +165,31 @@ services:
       - "traefik.http.routers.radarr.tls=true"
       - "traefik.http.routers.radarr.tls.certresolver=letsencrypt"
 
+  bazarr:
+    image: linuxserver/bazarr:latest
+    restart: always
+    environment:
+      - PUID=33
+      - PGID=33
+      - TZ=America/New_York
+    volumes:
+      - /tank/container_data/bazarr:/config
+      - /tank/cloud/videos/TV:/tv
+      - /tank/cloud/videos/Movies:/movies
+    expose:
+      - 6767
+    depends_on:
+      - deluge
+      - nzbget
+      - jackett
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.bazarr.loadbalancer.server.port=6767"
+      - "traefik.http.routers.bazarr.rule=Host(`bazarr.viggy96.me`)"
+      - "traefik.http.routers.bazarr.middlewares=private@file"
+      - "traefik.http.routers.bazarr.tls=true"
+      - "traefik.http.routers.bazarr.tls.certresolver=letsencrypt"
+
   lidarr:
     image: linuxserver/lidarr:latest
     restart: always
