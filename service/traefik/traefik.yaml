@@ -10,6 +10,11 @@ accessLog: {}
 entryPoints:
   web:
     address: ":80"
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
   websecure:
     address: ":443"
 
@@ -26,6 +31,5 @@ certificatesResolvers:
     acme:
       email: "admin@viggy96.me"
       storage: "/etc/traefik/acme.json"
-      httpChallenge:
-        entryPoint: web 
+      tlsChallenge: {}
 
