@@ -30,27 +30,6 @@ services:
       - "traefik.http.routers.jellyfin.tls=true"
       - "traefik.http.routers.jellyfin.tls.certresolver=letsencrypt"
 
-  deluge:
-    image: linuxserver/deluge:latest
-    restart: always
-    environment:
-      - PUID=33
-      - PGID=33
-      - UMASK_SET=022
-      - TZ=America/New_York
-    volumes:
-      - /tank/container_data/deluged:/config
-      - /tank/downloads:/downloads
-    expose:
-      - 8112
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.services.deluge.loadbalancer.server.port=8112"
-      - "traefik.http.routers.deluge.rule=Host(`deluge.viggy96.me`)"
-      - "traefik.http.routers.deluge.middlewares=private@file"
-      - "traefik.http.routers.deluge.tls=true"
-      - "traefik.http.routers.deluge.tls.certresolver=letsencrypt"
-
   qbittorrent:
     image: linuxserver/qbittorrent:latest
     restart: always
@@ -130,7 +109,6 @@ services:
       - 8989
     depends_on:
       - qbittorrent
-      - deluge
       - nzbget
       - jackett
     labels:
@@ -156,7 +134,6 @@ services:
       - 7878
     depends_on:
       - qbittorrent
-      - deluge
       - nzbget
       - jackett
     labels:
@@ -205,7 +182,7 @@ services:
     expose:
       - 8686
     depends_on:
-      - deluge
+      - qbittorrent
       - nzbget
       - jackett
     labels:
