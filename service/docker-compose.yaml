@@ -12,6 +12,7 @@ services:
   openldap:
     image: osixia/openldap:latest
     restart: always
+    command: --copy-service
     networks:
       - default
       - dev
