@@ -99,8 +99,7 @@ services:
   wireguard:
     image: embarkstudios/wireguard-ui:latest
     restart: always
-    cap_add:
-      - NET_ADMIN
+    privileged: true
     environment:
       - TZ=America/New_York
     volumes:
