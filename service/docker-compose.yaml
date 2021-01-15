@@ -106,8 +106,9 @@ services:
       - /tank/container_data/wireguard:/data
     environment:
       - WG_CONFIG=/wg-config.yaml
+    expose:
+      - 8000
     ports:
-      - 8000:8000
       - 51800-51900:51800-51900/udp
     devices:
       - /dev/net/tun:/dev/net/tun
