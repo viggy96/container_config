@@ -97,28 +97,31 @@ services:
       - "traefik.http.routers.www.tls.certresolver=letsencrypt"
 
   wireguard:
-    image: ngoduykhanh/wireguard-ui:latest
+    image: perara/wg-manager:latest
     restart: always
     cap_add:
-      - SYS_ADMIN
       - NET_ADMIN
     environment:
       - TZ=America/New_York
+      - HOST=0.0.0.0
+      - PORT=8888
+      - ADMIN_USERNAME=admin
+      - ADMIN_PASSWORD=admin
+      - WEB_CONCURRENCY=1 
     volumes:
-      - /tank/container_data/wireguard:/app/db
-      - /etc/wireguard:/etc/wireguard
+      - /tank/container_data/wireguard:/config
     expose: 
-      - 5000
+      - 8888
     ports:
-      - 51800-51900:51800-51900/udp
+      - 51800-51900:51800-51900/udp 
     labels:
       - "traefik.enable=true"
-      - "traefik.http.services.wireguard.loadbalancer.server.port=5000"
+      - "traefik.http.services.wireguard.loadbalancer.server.port=8888"
       - "traefik.http.routers.wireguard.rule=Host(`wireguard.viggy96.me`)"
       - "traefik.http.routers.wireguard.middlewares=private@file"
       - "traefik.http.routers.wireguard.tls=true"
-      - "traefik.http.routers.wireguard.tls.certresolver=letsencrypt"
-      
+      - "traefik.http.routers.wireguard.tls.certresolver=letsencrypt" 
+
 
 # external networks 
 networks:
