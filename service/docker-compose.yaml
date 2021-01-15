@@ -105,7 +105,8 @@ services:
     environment:
       - TZ=America/New_York
     volumes:
-      - /tank/container_data/wireguard:/data
+      - /tank/container_data/wireguard:/app/db
+      - /etc/wireguard:/etc/wireguard
     expose: 
       - 5000
     labels:
