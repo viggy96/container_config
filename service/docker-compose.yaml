@@ -106,8 +106,6 @@ services:
       - /tank/container_data/wireguard:/data
     expose: 
       - 8080
-    ports:
-      - 51800-51900:51800-51900/udp 
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.wireguard.loadbalancer.server.port=8080"
