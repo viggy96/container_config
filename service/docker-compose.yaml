@@ -97,18 +97,20 @@ services:
       - "traefik.http.routers.www.tls.certresolver=letsencrypt"
 
   wireguard:
-    image: embarkstudios/wireguard-ui:latest
+    image: ngoduykhanh/wireguard-ui:latest
     restart: always
-    privileged: true
+    cap_add:
+      - SYS_ADMIN
+      - NET_ADMIN
     environment:
       - TZ=America/New_York
     volumes:
       - /tank/container_data/wireguard:/data
     expose: 
-      - 8080
+      - 5000
     labels:
       - "traefik.enable=true"
-      - "traefik.http.services.wireguard.loadbalancer.server.port=8080"
+      - "traefik.http.services.wireguard.loadbalancer.server.port=5000"
       - "traefik.http.routers.wireguard.rule=Host(`wireguard.viggy96.me`)"
       - "traefik.http.routers.wireguard.middlewares=private@file"
       - "traefik.http.routers.wireguard.tls=true"
