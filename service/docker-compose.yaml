@@ -114,11 +114,11 @@ services:
       - /dev/net/tun:/dev/net/tun
     labels: 
       - "traefik.enable=true"
-      - "traefik.http.services.www.loadbalancer.server.port=8000"
-      - "traefik.http.routers.www.rule=Host(`wireguard.viggy96.me`)"
-      - "traefik.http.routers.www.middlewares=secure@file"
-      - "traefik.http.routers.www.tls=true"
-      - "traefik.http.routers.www.tls.certresolver=letsencrypt"
+      - "traefik.http.services.wireguard.loadbalancer.server.port=8000"
+      - "traefik.http.routers.wireguard.rule=Host(`wireguard.viggy96.me`)"
+      - "traefik.http.routers.wireguard.middlewares=private@file"
+      - "traefik.http.routers.wireguard.tls=true"
+      - "traefik.http.routers.wireguard.tls.certresolver=letsencrypt"
 
 
 # external networks 
