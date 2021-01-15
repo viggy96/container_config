@@ -96,6 +96,29 @@ services:
       - "traefik.http.routers.www.tls=true"
       - "traefik.http.routers.www.tls.certresolver=letsencrypt"
 
+  wireguard:
+    image: place1/wg-access-server
+    restart: always
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./wg-config.yaml:/wg-config.yaml
+      - /tank/container_data/wireguard:/data
+    environment:
+      - WG_CONFIG=/wg-config.yaml
+    ports:
+      - 8000:8000
+      - 51800-51900:51800-51900/udp
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    labels: 
+      - "traefik.enable=true"
+      - "traefik.http.services.www.loadbalancer.server.port=8000"
+      - "traefik.http.routers.www.rule=Host(`wireguard.viggy96.me`)"
+      - "traefik.http.routers.www.middlewares=secure@file"
+      - "traefik.http.routers.www.tls=true"
+      - "traefik.http.routers.www.tls.certresolver=letsencrypt"
+
 
 # external networks 
 networks:
