@@ -1,7 +1,0 @@
-loglevel: info
-adminPassword: "admin"
-wireguard:
-  privateKey: "oBML0xzJ8EBA7Bv5JXUZZ+uuSMsHxpWB3M6/VwVZU3E="
-dns:
-  upstream:
-    - "192.168.1.1"
