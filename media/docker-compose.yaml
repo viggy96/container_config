@@ -7,8 +7,8 @@ services:
     image: jellyfin/jellyfin:latest
     restart: always
     environment:
-      - PUID=33
-      - PGID=33
+      - UID=33
+      - GID=33
       - TZ=America/New_York
     devices:
       - /dev/dri
