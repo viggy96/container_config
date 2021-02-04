@@ -87,8 +87,11 @@ services:
     labels: 
       - "traefik.enable=true"
       - "traefik.http.services.www.loadbalancer.server.port=80"
-      - "traefik.http.routers.www.rule=Host(`www.viggy96.me`)"
-      - "traefik.http.routers.www.middlewares=secure@file"
+      - "traefik.http.routers.www.rule=Host(`viggy96.me`) || Host(`www.viggy96.me`)"
+      - "traefik.http.middlewares.non-www.redirectregex.regex=^https?://viggy96.me/(.*)"
+      - "traefik.http.middlewares.non-www.redirectregex.replacement=https://www.viggy96.me/$${1}"
+      - "traefik.http.middlewares.non-www.redirectregex.permanent=true"
+      - "traefik.http.routers.www.middlewares=non-www,secure@file"
       - "traefik.http.routers.www.tls=true"
       - "traefik.http.routers.www.tls.certresolver=letsencrypt"
 
