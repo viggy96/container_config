@@ -55,6 +55,10 @@ services:
   nzbget:
     image: linuxserver/nzbget:latest
     restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
     environment:
       - PUID=33
       - PGID=33
