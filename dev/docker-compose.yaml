@@ -23,4 +23,5 @@ services:
       - "traefik.http.routers.jenkins.middlewares=secure@file"
       - "traefik.http.routers.jenkins.tls=true"
       - "traefik.http.routers.jenkins.tls.certresolver=letsencrypt"
+      - "com.centurylinklabs.watchtower.enable=false"
 
