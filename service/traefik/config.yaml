@@ -33,7 +33,6 @@ http:
 tls:
   options:
     default:
-      preferServerCipherSuites: true
       minVersion: VersionTLS12
       sniStrict: true
       curvePreferences:
