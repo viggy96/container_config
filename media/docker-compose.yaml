@@ -94,7 +94,7 @@ services:
       - "traefik.http.routers.jackett.tls.certresolver=letsencrypt"
 
   prowlarr:
-    image: linuxserver/prowlarr:develop
+    image: linuxserver/prowlarr:nightly
     restart: always
     environment:
       - PUID=33
