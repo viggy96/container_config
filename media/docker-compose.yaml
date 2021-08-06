@@ -214,3 +214,29 @@ services:
       - "traefik.http.routers.lidarr.tls=true"
       - "traefik.http.routers.lidarr.tls.certresolver=letsencrypt"
 
+  readarr:
+    image: linuxserver/readarr:nightly
+    restart: always
+    environment:
+      - PUID=33
+      - PGID=33
+      - TZ=America/New_York
+    volumes:
+      - /tank/container_data/readarr:/config
+      - /tank/cloud/books:/books
+      - /tank/downloads:/downloads
+    expose:
+      - 8787
+    depends_on:
+      - qbittorrent
+      - nzbget
+      - jackett
+      - prowlarr
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.readarr.loadbalancer.server.port=8787"
+      - "traefik.http.routers.readarr.rule=Host(`readarr.viggy96.me`)"
+      - "traefik.http.routers.readarr.middlewares=private@file"
+      - "traefik.http.routers.readarr.tls=true"
+      - "traefik.http.routers.readarr.tls.certresolver=letsencrypt"
+
