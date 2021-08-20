@@ -88,6 +88,8 @@ services:
     volumes:
       - /tank/container_data/freeipa:/data:Z  
       - ./ipa-server-install-options:/data/ipa-server-install-options
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=0
     expose:
       - 80
       - 389
