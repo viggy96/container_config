@@ -75,7 +75,7 @@ services:
       - "traefik.http.routers.phpldapadmin.tls.certresolver=letsencrypt"
 
   freeipa:
-    image: freeipa/freeipa-server:fedora-34
+    image: freeipa/freeipa-server:centos-8
     restart: always
     networks:
       - default
