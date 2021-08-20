@@ -66,8 +66,6 @@ services:
       - PHPLDAPADMIN_HTTPS=false
     expose:
       - 80
-    depends_on:
-      - openldap
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.phpldapadmin.loadbalancer.server.port=80"
@@ -75,6 +73,33 @@ services:
       - "traefik.http.routers.phpldapadmin.middlewares=private@file"
       - "traefik.http.routers.phpldapadmin.tls=true"
       - "traefik.http.routers.phpldapadmin.tls.certresolver=letsencrypt"
+
+  freeipa:
+    image: freeipa/freeipa-server:latest
+    restart: always
+    networks:
+      - default
+      - dev
+      - cloud
+      - media
+    environment:
+      - TZ=America/New_York
+      - IPA_SERVER_HOSTNAME=freeipa.viggy96.me
+    volumes:
+      - /tank/container_data/freeipa:/data:Z  
+      - ./ipa-server-install-options:/data/ipa-server-install-options
+    expose:
+      - 80
+      - 389
+      - 464
+      - 636
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.freeipa.loadbalancer.server.port=80"
+      - "traefik.http.routers.freeipa.rule=Host(`freeipa.viggy96.me`)"
+      - "traefik.http.routers.freeipa.middlewares=private@file"
+      - "traefik.http.routers.freeipa.tls=true"
+      - "traefik.http.routers.freeipa.tls.certresolver=letsencrypt"
 
   www:
     image: viggy96/resume-website:latest
