@@ -73,26 +73,6 @@ services:
       - "traefik.http.routers.nzbget.tls=true"
       - "traefik.http.routers.nzbget.tls.certresolver=letsencrypt"
 
-  jackett:
-    image: linuxserver/jackett:latest
-    restart: always
-    environment:
-      - PUID=33
-      - PGID=33
-      - TZ=America/New_York
-    volumes:
-      - /tank/container_data/jackett:/config
-      - /tank/downloads:/downloads
-    expose:
-      - 9117
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.services.jackett.loadbalancer.server.port=9117"
-      - "traefik.http.routers.jackett.rule=Host(`jackett.viggy96.me`)"
-      - "traefik.http.routers.jackett.middlewares=private@file"
-      - "traefik.http.routers.jackett.tls=true"
-      - "traefik.http.routers.jackett.tls.certresolver=letsencrypt"
-
   prowlarr:
     image: linuxserver/prowlarr:nightly
     restart: always
@@ -128,7 +108,6 @@ services:
     depends_on:
       - qbittorrent
       - nzbget
-      - jackett
       - prowlarr
     labels:
       - "traefik.enable=true"
@@ -154,7 +133,6 @@ services:
     depends_on:
       - qbittorrent
       - nzbget
-      - jackett
       - prowlarr
     labels:
       - "traefik.enable=true"
@@ -204,7 +182,6 @@ services:
     depends_on:
       - qbittorrent
       - nzbget
-      - jackett
       - prowlarr
     labels:
       - "traefik.enable=true"
@@ -230,7 +207,6 @@ services:
     depends_on:
       - qbittorrent
       - nzbget
-      - jackett
       - prowlarr
     labels:
       - "traefik.enable=true"
