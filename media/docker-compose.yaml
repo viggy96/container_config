@@ -18,6 +18,7 @@ services:
       - /tank/container_data/jellyfin_cache:/cache
       - /tank/cloud/videos/:/media/video
       - /tank/cloud/music:/media/music
+      - /tank/cloud/books:/media/books
     expose:
       - 8096
     ports:
