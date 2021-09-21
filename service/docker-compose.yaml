@@ -91,7 +91,7 @@ services:
       - "traefik.http.routers.www.tls.certresolver=letsencrypt"
 
   wireguard:
-    image: weejewel/wg-easy
+    image: weejewel/wg-easy:latest
     restart: always
     cap_add:
       - NET_ADMIN
