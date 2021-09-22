@@ -7,6 +7,9 @@ log:
 
 accessLog: {}
 
+experimental:
+  http3: true
+
 entryPoints:
   web:
     address: ":80"
@@ -16,6 +19,7 @@ entryPoints:
           to: websecure
           scheme: https
   websecure:
+    enableHTTP3: true
     address: ":443"
 
 providers:
