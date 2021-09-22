@@ -21,7 +21,5 @@ services:
       - "traefik.http.services.jenkins.loadbalancer.server.port=8080"
       - "traefik.http.routers.jenkins.rule=Host(`jenkins.viggy96.me`)"
       - "traefik.http.routers.jenkins.middlewares=secure@file"
-      - "traefik.http.routers.jenkins.tls=true"
-      - "traefik.http.routers.jenkins.tls.certresolver=letsencrypt"
       - "com.centurylinklabs.watchtower.enable=false"
 

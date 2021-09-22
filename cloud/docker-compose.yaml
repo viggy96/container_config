@@ -59,6 +59,4 @@ services:
       - "traefik.http.middlewares.nextcloud-rep.redirectregex.replacement=https://$$1/remote.php/dav/"
       - "traefik.http.middlewares.nextcloud-rep.redirectregex.permanent=true"
       - "traefik.http.routers.nextcloud.middlewares=nextcloud-rep,secure@file"
-      - "traefik.http.routers.nextcloud.tls=true"
-      - "traefik.http.routers.nextcloud.tls.certresolver=letsencrypt"
 

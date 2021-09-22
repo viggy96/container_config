@@ -21,6 +21,9 @@ entryPoints:
   websecure:
     enableHTTP3: true
     address: ":443"
+    http:
+      tls:
+        certResolver: letsencrypt
 
 providers:
   docker:
