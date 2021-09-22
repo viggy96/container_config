@@ -75,12 +75,12 @@ services:
     restart: always
     environment:
       - ENV=production
-      - PORT=80 
+      - PORT=443
     expose:
-      - 80 
+      - 443
     labels: 
       - "traefik.enable=true"
-      - "traefik.http.services.www.loadbalancer.server.port=80"
+      - "traefik.http.services.www.loadbalancer.server.port=443"
       - "traefik.http.routers.www.rule=Host(`www.viggy96.me`)"
       - "traefik.http.routers.www.middlewares=secure@file"
 
