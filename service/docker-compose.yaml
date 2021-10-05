@@ -93,12 +93,13 @@ services:
     volumes: 
       - /tank/container_data/wireguard:/etc/wireguard
     environment:
+      - WG_PORT=8443
       - WG_HOST=wireguard.viggy96.me
       - WG_DEFAULT_DNS=192.168.1.1
     expose:
       - 51821
     ports:
-      - 51820:51820/udp
+      - 8443:8443/udp
     labels: 
       - "traefik.enable=true"
       - "traefik.http.services.wireguard.loadbalancer.server.port=51821"
