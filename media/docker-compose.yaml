@@ -109,7 +109,7 @@ services:
       - "traefik.http.routers.sonarr.middlewares=private@file"
 
   radarr:
-    image: linuxserver/radarr:latest
+    image: linuxserver/radarr:nightly
     restart: always
     environment:
       - PUID=33
