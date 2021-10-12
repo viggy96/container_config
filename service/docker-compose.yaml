@@ -15,7 +15,6 @@ services:
     command: --copy-service
     networks:
       - default
-      - dev
       - cloud
       - media
     environment:
@@ -37,7 +36,6 @@ services:
       - no-new-privileges:true
     networks:
       - default
-      - dev
       - cloud
       - media
     environment:
@@ -116,8 +114,4 @@ networks:
   media:
     external:
       name: media_default
-
-  dev:
-    external:
-      name: dev_default
 
