@@ -73,7 +73,6 @@ services:
     restart: always
     environment:
       - ENV=production
-      - PORT=443
     expose:
       - 443
     labels: 
