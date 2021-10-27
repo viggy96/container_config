@@ -79,7 +79,10 @@ services:
       - "traefik.enable=true"
       - "traefik.http.services.www.loadbalancer.server.port=443"
       - "traefik.http.routers.www.rule=Host(`www.viggy96.me`)"
-      - "traefik.http.routers.www.middlewares=secure@file"
+      - "traefik.http.middlewares.www-rep.redirectregex.regex=^https://viggy96.me/(.*)"
+      - "traefik.http.middlewares.www-rep.redirectregex.replacement=https://www.viggy96.me/$${1}"
+      - "traefik.http.middlewares.www-rep.redirectregex.permanent=true"
+      - "traefik.http.routers.www.middlewares=www-rep,secure@file"
 
   wireguard:
     image: weejewel/wg-easy:latest
