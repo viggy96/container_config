@@ -43,6 +43,8 @@ services:
       - /tank/downloads:/downloads
     expose:
       - 8080
+    ports:
+      - 1080:1080
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.qbittorrent.loadbalancer.server.port=8080"
@@ -62,8 +64,6 @@ services:
       - /tank/downloads/nzbget:/downloads
     expose:
       - 6789
-    ports:
-      - 1080:1080
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.nzbget.loadbalancer.server.port=6789"
