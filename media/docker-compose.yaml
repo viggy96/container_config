@@ -35,7 +35,7 @@ services:
     environment:
       - PUID=33
       - PGID=33
-      - UMASK_SET=022
+      - UMASK=022
       - TZ=America/New_York
       - WEBUI_PORT=8080
     volumes:
@@ -58,7 +58,7 @@ services:
     environment:
       - PUID=33
       - PGID=33
-      - UMASK_SET=022
+      - UMASK=022
       - TZ=America/New_York
     volumes:
       - /tank/container_data/nzbget:/config
