@@ -5,7 +5,7 @@ api:
 log:
   level: INFO 
 
-accessLog: {}
+accessLog: true
 
 experimental:
   http3: true
@@ -38,5 +38,5 @@ certificatesResolvers:
     acme:
       email: "admin@viggy96.me"
       storage: "/etc/traefik/acme.json"
-      tlsChallenge: {}
+      tlsChallenge: true
 
