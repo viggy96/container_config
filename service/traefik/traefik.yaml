@@ -19,7 +19,7 @@ entryPoints:
           to: websecure
           scheme: https
   websecure:
-    enableHTTP3: true
+    http3: true
     address: ":443"
     http:
       tls:
