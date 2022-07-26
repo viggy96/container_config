@@ -9,26 +9,6 @@ services:
     volumes: 
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
-  openldap:
-    image: osixia/openldap:latest
-    restart: always
-    command: --copy-service
-    networks:
-      - default
-      - cloud
-      - media
-    environment:
-      - TZ=America/New_York
-      - LDAP_TLS=false
-      - LDAP_READONLY_USER=true
-      - LDAP_ORGANISATION=box
-      - LDAP_DOMAIN=viggy96.me
-    volumes:
-      - /tank/container_data/openldap/database:/var/lib/ldap
-      - /tank/container_data/openldap/config:/etc/ldap/slapd.d
-    expose:
-       - 389
-
   traefik:
     image: traefik:latest
     restart: always
@@ -53,21 +33,6 @@ services:
       - "traefik.http.routers.traefik.rule=Host(`traefik.viggy96.me`)"
       - "traefik.http.routers.traefik.middlewares=private@file"
       - "traefik.http.routers.traefik.service=api@internal"
-
-  phpldapadmin:
-    image: osixia/phpldapadmin:latest
-    restart: always
-    environment:
-      - TZ=America/New_York
-      - PHPLDAPADMIN_LDAP_HOSTS=openldap
-      - PHPLDAPADMIN_HTTPS=false
-    expose:
-      - 80
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.services.phpldapadmin.loadbalancer.server.port=80"
-      - "traefik.http.routers.phpldapadmin.rule=Host(`phpldapadmin.viggy96.me`)"
-      - "traefik.http.routers.phpldapadmin.middlewares=private@file"
 
   www:
     image: viggy96/resume-website:latest
