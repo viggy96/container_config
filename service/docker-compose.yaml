@@ -19,7 +19,7 @@ services:
       - cloud
       - media
     environment:
-      - TZ=America/New_York
+      - TZ=America/Chicago
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -73,6 +73,24 @@ services:
       - "traefik.http.services.wireguard.loadbalancer.server.port=51821"
       - "traefik.http.routers.wireguard.rule=Host(`wireguard.viggy96.me`)"
       - "traefik.http.routers.wireguard.middlewares=private@file"
+
+  home-assistant:
+    image: homeassistant/home-assistant:stable
+    restart: always
+    environment:
+      - TZ=America/Chicago
+    devices:
+      - /dev/ttyUSB0:/dev/ttyUSB0
+      - /dev/ttyUSB1:/dev/ttyUSB1
+    volumes:
+      - /tank/container_data/home-assistant:/config
+    expose:
+      - 8123
+    labels: 
+      - "traefik.enable=true"
+      - "traefik.http.services.home-assistant.loadbalancer.server.port=8123"
+      - "traefik.http.routers.home-assistant.rule=Host(`home-assistant.viggy96.me`)"
+      - "traefik.http.routers.home-assistant.middlewares=private@file"
 
 
 # external networks 
