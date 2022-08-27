@@ -9,7 +9,7 @@ services:
     environment:
       - UID=33
       - GID=33
-      - TZ=America/New_York
+      - TZ=America/Chicago
     devices:
       - /dev/dri
     volumes:
@@ -36,7 +36,7 @@ services:
       - PUID=33
       - PGID=33
       - UMASK=022
-      - TZ=America/New_York
+      - TZ=America/Chicago
       - WEBUI_PORT=8080
     volumes:
       - /tank/container_data/qbittorrent:/config
@@ -59,7 +59,7 @@ services:
       - PUID=33
       - PGID=33
       - UMASK=022
-      - TZ=America/New_York
+      - TZ=America/Chicago
     volumes:
       - /tank/container_data/nzbget:/config
       - /tank/downloads/nzbget:/downloads
@@ -77,7 +77,7 @@ services:
     environment:
       - PUID=33
       - PGID=33
-      - TZ=America/New_York
+      - TZ=America/Chicago
     volumes:
       - /tank/container_data/prowlarr:/config
     expose:
@@ -94,7 +94,7 @@ services:
     environment:
       - PUID=33
       - PGID=33
-      - TZ=America/New_York
+      - TZ=America/Chicago
     volumes:
       - /tank/container_data/sonarr:/config
       - /tank/cloud/videos/TV:/tv
@@ -117,7 +117,7 @@ services:
     environment:
       - PUID=33
       - PGID=33
-      - TZ=America/New_York
+      - TZ=America/Chicago
     volumes:
       - /tank/container_data/radarr:/config
       - /tank/cloud/videos/Movies:/movies
@@ -140,7 +140,7 @@ services:
     environment:
       - PUID=33
       - PGID=33
-      - TZ=America/New_York
+      - TZ=America/Chicago
     volumes:
       - /tank/container_data/bazarr:/config
       - /tank/cloud/videos/TV:/tv
@@ -162,7 +162,7 @@ services:
     environment:
       - PUID=33
       - PGID=33
-      - TZ=America/New_York
+      - TZ=America/Chicago
     volumes:
       - /tank/container_data/lidarr:/config
       - /tank/cloud/music:/music
@@ -185,7 +185,7 @@ services:
     environment:
       - PUID=33
       - PGID=33
-      - TZ=America/New_York
+      - TZ=America/Chicago
     volumes:
       - /tank/container_data/readarr:/config
       - /tank/cloud/books:/books
