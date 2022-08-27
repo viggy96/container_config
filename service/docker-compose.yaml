@@ -90,7 +90,7 @@ services:
       - "traefik.enable=true"
       - "traefik.http.services.home-assistant.loadbalancer.server.port=8123"
       - "traefik.http.routers.home-assistant.rule=Host(`home-assistant.viggy96.me`)"
-      - "traefik.http.routers.home-assistant.middlewares=private@file"
+      - "traefik.http.routers.home-assistant.middlewares=secure@file"
 
 
 # external networks 
