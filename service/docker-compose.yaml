@@ -25,9 +25,13 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./traefik/:/etc/traefik
     ports:
+      - 53:53/tcp
+      - 53:53/udp
       - 80:80/tcp
       - 443:443/tcp
       - 443:443/udp
+      - 853:853/tcp
+      - 853:853/udp
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.rule=Host(`traefik.viggy96.me`)"
@@ -49,6 +53,29 @@ services:
       - "traefik.http.middlewares.www-rep.redirectregex.replacement=https://www.viggy96.me/$${1}"
       - "traefik.http.middlewares.www-rep.redirectregex.permanent=true"
       - "traefik.http.routers.www.middlewares=www-rep,secure@file"
+
+  lancache-dns:
+    image: lancachenet/lancache-dns:latest
+    restart: always
+    environment:
+      - UPSTREAM_DNS=192.168.1.1
+    expose:
+      - 53
+    ports:
+      - 853:853/tcp
+    labels:
+      - "traefik.enable=true"
+      - "traefik.tcp.routers.dnsovertls.rule=HostSNI(`dns.viggy96.me`)"
+      - "traefik.tcp.routers.dnsovertls.entrypoints=dnsovertls"
+      - "traefik.tcp.routers.dnsovertls.tls.certresolver=letsencrypt"
+      - "traefik.tcp.routers.dnsovertls.service=lancache-dns"
+      - "traefik.tcp.routers.dns.rule=HostSNI(`dns.viggy96.me`)"
+      - "traefik.tcp.routers.dns.entrypoints=dns"
+      - "traefik.tcp.routers.dns.service=lancache-dns"
+      - "traefik.tcp.services.lancache-dns.loadbalancer.server.port=53"
+      - "traefik.udp.routers.udpdns.entrypoints=dnsudp"
+      - "traefik.udp.routers.udpdns.service=lancache-dns"
+      - "traefik.udp.services.lancache-dns.loadbalancer.server.port=53"
 
   wireguard:
     image: weejewel/wg-easy:latest
