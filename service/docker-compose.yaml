@@ -61,8 +61,6 @@ services:
       - UPSTREAM_DNS=192.168.1.1
     expose:
       - 53
-    ports:
-      - 853:853/tcp
     labels:
       - "traefik.enable=true"
       - "traefik.tcp.routers.dnsovertls.rule=HostSNI(`dns.viggy96.me`)"
