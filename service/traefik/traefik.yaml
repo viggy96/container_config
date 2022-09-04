@@ -24,12 +24,6 @@ entryPoints:
     http:
       tls:
         certResolver: letsencrypt
-  dns:
-    address: ":53"
-  dnsudp:
-    address: ":53/udp"
-  dnsovertls:
-    address: ":853"
 
 providers:
   docker:
