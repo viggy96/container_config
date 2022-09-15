@@ -72,7 +72,7 @@ services:
       - "traefik.http.routers.nzbget.middlewares=private@file"
 
   prowlarr:
-    image: linuxserver/prowlarr:nightly
+    image: linuxserver/prowlarr:develop
     restart: always
     environment:
       - PUID=33
