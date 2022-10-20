@@ -1,2 +1,2 @@
 service/traefik/acme.json
-service/wg-config.yaml
+media/gluetun.env

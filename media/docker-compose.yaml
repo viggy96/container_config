@@ -3,6 +3,18 @@ version: '3.7'
 # media containers
 services:
 
+  gluetun:
+    image: qmcgaw/gluetun:latest
+    cap_add: NET_ADMIN
+    env_file:
+      - gluetun.env
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    volumes:
+      - /tank/container_data/gluetun:/gluetun
+    expose:
+      - 8888
+
   jellyfin:
     image: jellyfin/jellyfin:latest
     restart: always
