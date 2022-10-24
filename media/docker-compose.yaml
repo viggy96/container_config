@@ -44,8 +44,8 @@ services:
     expose:
       - 8080
     ports:
-      - 1080:1080/tcp
-      - 1080:1080/udp
+      - 6881:6881/tcp
+      - 6881:6881/udp
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.qbittorrent.loadbalancer.server.port=8080"
