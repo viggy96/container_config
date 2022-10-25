@@ -30,15 +30,22 @@ services:
       - "traefik.http.routers.jellyfin.middlewares=secure@file"
 
   gluetun:
-     image: qmcgaw/gluetun:latest
-     restart: always
-     cap_add:
-       - NET_ADMIN
-     env_file:
-       - gluetun.env
-     ports:
-       - 6881:6881/tcp
-       - 6881:6881/udp
+    image: qmcgaw/gluetun:latest
+    restart: always
+    cap_add:
+      - NET_ADMIN
+    env_file:
+      - gluetun.env
+    expose:
+      - 8080
+    ports:
+      - 6881:6881/tcp
+      - 6881:6881/udp
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.qbittorrent.loadbalancer.server.port=8080"
+      - "traefik.http.routers.qbittorrent.rule=Host(`qbittorrent.viggy96.me`)"
+      - "traefik.http.routers.qbittorrent.middlewares=private@file"
 
   qbittorrent:
     image: linuxserver/qbittorrent:latest
@@ -55,11 +62,6 @@ services:
       - /tank/downloads:/downloads
     depends_on:
       - gluetun
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.services.qbittorrent.loadbalancer.server.port=8080"
-      - "traefik.http.routers.qbittorrent.rule=Host(`qbittorrent.viggy96.me`)"
-      - "traefik.http.routers.qbittorrent.middlewares=private@file"
 
   nzbget:
     image: linuxserver/nzbget:latest
