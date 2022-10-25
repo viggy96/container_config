@@ -53,6 +53,8 @@ services:
     volumes:
       - /tank/container_data/qbittorrent:/config
       - /tank/downloads:/downloads
+    depends_on:
+      - gluetun
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.qbittorrent.loadbalancer.server.port=8080"
