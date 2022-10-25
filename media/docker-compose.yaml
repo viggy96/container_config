@@ -29,9 +29,21 @@ services:
       - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.viggy96.me`)"
       - "traefik.http.routers.jellyfin.middlewares=secure@file"
 
+  gluetun:
+     image: qmcgaw/gluetun:latest
+     restart: always
+     cap_add:
+       - NET_ADMIN
+     env_file:
+       - gluetun.env
+     ports:
+       - 6881:6881/tcp
+       - 6881:6881/udp
+
   qbittorrent:
     image: linuxserver/qbittorrent:latest
     restart: always
+    network_mode: service:gluetun
     environment:
       - PUID=33
       - PGID=33
@@ -41,13 +53,6 @@ services:
     volumes:
       - /tank/container_data/qbittorrent:/config
       - /tank/downloads:/downloads
-    expose:
-      - 8080
-    ports:
-      - 1080:1080/tcp
-      - 1080:1080/udp
-      - 6881:6881/tcp
-      - 6881:6881/udp
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.qbittorrent.loadbalancer.server.port=8080"
