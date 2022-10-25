@@ -60,8 +60,6 @@ services:
     volumes:
       - /tank/container_data/qbittorrent:/config
       - /tank/downloads:/downloads
-    depends_on:
-      - gluetun
 
   nzbget:
     image: linuxserver/nzbget:latest
