@@ -80,8 +80,8 @@ services:
     environment:
       - TZ=America/Chicago
     devices:
-      - /dev/ttyUSB0:/dev/ttyUSB0
-      - /dev/ttyUSB1:/dev/ttyUSB1
+      - /dev/serial/by-id/usb-Silicon_Labs_HubZ_Smart_Home_Controller_21600502-if00-port0:/dev/ttyUSB0
+      - /dev/serial/by-id/usb-Silicon_Labs_HubZ_Smart_Home_Controller_21600502-if01-port0:/dev/ttyUSB1
     volumes:
       - /tank/container_data/home-assistant:/config
     expose:
