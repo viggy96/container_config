@@ -29,24 +29,6 @@ services:
       - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.viggy96.me`)"
       - "traefik.http.routers.jellyfin.middlewares=secure@file"
 
-  jfago:
-    image: hrfree/jfa-go:latest
-    restart: always
-    environment:
-      - UID=33
-      - GID=33 
-      - TZ=America/Chicago 
-    expose:
-      - 8056
-    volumes:
-      - /tank/container_data/jfa-go:data
-      - /tank/container_data/jellyfin_config:/jf
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.services.jfa-go.loadbalancer.server.port=8056"
-      - "traefik.http.routers.jfa-go.rule=Host(`jellyfin.viggy96.me`) && PathPrefix(`/jfa`)"
-      - "traefik.http.routers.jfa-go.middlewares=secure@file"
-
   gluetun:
     image: qmcgaw/gluetun:latest
     restart: always
