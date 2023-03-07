@@ -55,9 +55,8 @@ services:
       - "traefik.http.services.nextcloud.loadbalancer.server.port=80"
       - "traefik.http.services.nextcloud.loadbalancer.sticky=true"
       - "traefik.http.routers.nextcloud.rule=Host(`nextcloud.viggy96.me`)"
-      - "traefik.http.middlewares.nextcloud-limit.buffering.maxRequestBodyBytes=500000000000"
       - "traefik.http.middlewares.nextcloud-rep.redirectregex.regex=https://(.*)/.well-known/(card|cal)dav"
       - "traefik.http.middlewares.nextcloud-rep.redirectregex.replacement=https://$$1/remote.php/dav/"
       - "traefik.http.middlewares.nextcloud-rep.redirectregex.permanent=true"
-      - "traefik.http.routers.nextcloud.middlewares=nextcloud-limit,nextcloud-rep,secure@file"
+      - "traefik.http.routers.nextcloud.middlewares=nextcloud-rep,secure@file"
 
