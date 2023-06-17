@@ -31,6 +31,7 @@ services:
     image: nextcloud:production
     restart: always
     volumes:
+      - ./nextcloud-apache.conf:/etc/apache2/conf-enabled/nextcloud-apache.conf:ro
       - /tank/container_data/nextcloud_app:/var/www/html
       - /tank/cloud/nextcloud/data:/var/www/html/data
       - /tank/cloud/videos:/videos:ro
