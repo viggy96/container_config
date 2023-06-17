@@ -37,7 +37,6 @@ services:
       - /tank/cloud/videos:/videos:ro
       - /tank/cloud/music:/music
       - /tank/cloud/books:/books
-      - /tank/downloads/:/downloads
     environment:
       - UID=33
       - GID=33
