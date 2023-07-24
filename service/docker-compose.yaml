@@ -50,49 +50,6 @@ services:
       - "traefik.http.middlewares.www-rep.redirectregex.permanent=true"
       - "traefik.http.routers.www.middlewares=www-rep,secure@file"
 
-  wireguard:
-    image: weejewel/wg-easy:latest
-    restart: always
-    cap_add:
-      - NET_ADMIN
-      - SYS_MODULE 
-    sysctls:
-      - net.ipv4.conf.all.src_valid_mark=1
-      - net.ipv4.ip_forward=1
-    volumes: 
-      - /tank/container_data/wireguard:/etc/wireguard
-    environment:
-      - WG_HOST=wireguard.viggy96.me
-      - WG_DEFAULT_DNS=192.168.1.1
-    expose:
-      - 51821
-    ports:
-      - 51820:51820/udp
-    labels: 
-      - "traefik.enable=true"
-      - "traefik.http.services.wireguard.loadbalancer.server.port=51821"
-      - "traefik.http.routers.wireguard.rule=Host(`wireguard.viggy96.me`)"
-      - "traefik.http.routers.wireguard.middlewares=private@file"
-
-  home-assistant:
-    image: homeassistant/home-assistant:stable
-    restart: always
-    environment:
-      - TZ=America/Chicago
-    devices:
-      - /dev/serial/by-id/usb-Silicon_Labs_HubZ_Smart_Home_Controller_21600502-if00-port0:/dev/ttyUSB0
-      - /dev/serial/by-id/usb-Silicon_Labs_HubZ_Smart_Home_Controller_21600502-if01-port0:/dev/ttyUSB1
-    volumes:
-      - /tank/container_data/home-assistant:/config
-    expose:
-      - 8123
-    labels: 
-      - "traefik.enable=true"
-      - "traefik.http.services.home-assistant.loadbalancer.server.port=8123"
-      - "traefik.http.routers.home-assistant.rule=Host(`home-assistant.viggy96.me`)"
-      - "traefik.http.routers.home-assistant.middlewares=secure@file"
-
-
 # external networks 
 networks:
 
