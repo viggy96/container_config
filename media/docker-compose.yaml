@@ -11,7 +11,8 @@ services:
       - GID=33
       - TZ=America/Chicago
     group_add:
-      - 122
+      - 44
+      - 123
     devices:
       - /dev/dri
     volumes:
