@@ -7,9 +7,6 @@ log:
 
 accessLog: true
 
-experimental:
-  http3: true
-
 entryPoints:
   web:
     address: ":80"
