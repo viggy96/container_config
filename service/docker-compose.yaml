@@ -50,23 +50,17 @@ services:
       - "traefik.http.middlewares.www-rep.redirectregex.permanent=true"
       - "traefik.http.routers.www.middlewares=www-rep,secure@file"
 
-  librespeed:
-    image: linuxserver/librespeed:latest
+  openspeedtest:
+    image: openspeedtest/latest:latest
     restart: always
-    environment:
-      - PUID=33
-      - PGID=33
-      - TZ=America/Chicago
-      - PASSWORD=
-    volumes:
-      - /tank/container_data/librespeed:/config
     expose:
-      - 80
+      - 3000
     labels:
       - "traefik.enable=true"
-      - "traefik.http.services.librespeed.loadbalancer.server.port=80"
-      - "traefik.http.routers.librespeed.rule=Host(`librespeed.viggy96.me`)"
-      - "traefik.http.routers.librespeed.middlewares=private@file"
+      - "traefik.http.services.openspeedtest.loadbalancer.server.port=3000"
+      - "traefik.http.routers.openspeedtest.rule=Host(`openspeedtest.viggy96.me`)"
+      - "traefik.http.middlewares.openspeedtest-limit.buffering.maxRequestBodyBytes=10000000000"
+      - "traefik.http.routers.openspeedtest.middlewares=openspeedtest-limit,private@file"
 
 # external networks 
 networks:
