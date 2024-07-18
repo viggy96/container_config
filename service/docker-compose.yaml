@@ -56,13 +56,18 @@ services:
       - PGID=33
       - TZ=America/Chicago
       - PASSWORD=
+    volumes:
+      - /tank/container_data/librespeed:/config
     expose:
       - 80
     labels:
       - "traefik.enable=true"
-      - "traefik.http.services.openspeedtest.loadbalancer.server.port=3000"
-      - "traefik.http.middlewares.openspeedtest-limit.buffering.maxRequestBodyBytes=10000000000"
-      - "traefik.http.routers.openspeedtest.middlewares=openspeedtest-limit,private@file"
+      - "traefik.http.services.librespeed.loadbalancer.server.port=80"
+      - "traefik.http.middlewares.librespeed-limit.buffering.maxRequestBodyBytes=10000000000"
+      - "traefik.http.middlewares.librespeed-limit.buffering.memRequestBodyBytes=10000000000"
+      - "traefik.http.middlewares.librespeed-limit.buffering.maxResponseBodyBytes=10000000000"
+      - "traefik.http.middlewares.librespeed-limit.buffering.memResponseBodyBytes=10000000000"
+      - "traefik.http.routers.librespeed.middlewares=openspeedtest-limit,private@file"
 
 # external networks 
 networks:
