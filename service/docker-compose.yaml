@@ -30,7 +30,6 @@ services:
       - 443:443/udp
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.traefik.rule=Host(`traefik.viggy96.me`)"
       - "traefik.http.routers.traefik.middlewares=private@file"
       - "traefik.http.routers.traefik.service=api@internal"
 
@@ -44,7 +43,6 @@ services:
     labels: 
       - "traefik.enable=true"
       - "traefik.http.services.www.loadbalancer.server.port=443"
-      - "traefik.http.routers.www.rule=Host(`www.viggy96.me`)"
       - "traefik.http.middlewares.www-rep.redirectregex.regex=^https://viggy96.me/(.*)"
       - "traefik.http.middlewares.www-rep.redirectregex.replacement=https://www.viggy96.me/$${1}"
       - "traefik.http.middlewares.www-rep.redirectregex.permanent=true"
@@ -58,7 +56,6 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.openspeedtest.loadbalancer.server.port=3000"
-      - "traefik.http.routers.openspeedtest.rule=Host(`openspeedtest.viggy96.me`)"
       - "traefik.http.middlewares.openspeedtest-limit.buffering.maxRequestBodyBytes=10000000000"
       - "traefik.http.routers.openspeedtest.middlewares=openspeedtest-limit,private@file"
 

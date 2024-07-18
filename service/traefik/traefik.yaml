@@ -26,6 +26,7 @@ providers:
   docker:
     endpoint: "unix:///var/run/docker.sock"
     exposedByDefault: false
+    defaultRule: "Host(`{{ index .Labels \"com.docker.compose.service\"}}.viggy96.me`)"
   file:
     filename: "/etc/traefik/config.yaml"
     watch: true

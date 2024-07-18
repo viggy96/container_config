@@ -29,7 +29,6 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.jellyfin.loadbalancer.server.port=8096"
-      - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.viggy96.me`)"
       - "traefik.http.routers.jellyfin.middlewares=secure@file"
 
   gluetun:
@@ -47,7 +46,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.qbittorrent.loadbalancer.server.port=8080"
-      - "traefik.http.routers.qbittorrent.rule=Host(`qbittorrent.viggy96.me`)"
+      - "traefik.http.routers.qbittorrent.rule=Host(`qbittorrent.viggy6.me`)"
       - "traefik.http.routers.qbittorrent.middlewares=private@file"
 
   qbittorrent:
@@ -80,7 +79,6 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.nzbget.loadbalancer.server.port=6789"
-      - "traefik.http.routers.nzbget.rule=Host(`nzbget.viggy96.me`)"
       - "traefik.http.routers.nzbget.middlewares=private@file"
 
   prowlarr:
@@ -97,7 +95,6 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.prowlarr.loadbalancer.server.port=9696"
-      - "traefik.http.routers.prowlarr.rule=Host(`prowlarr.viggy96.me`)"
       - "traefik.http.routers.prowlarr.middlewares=private@file"
 
   sonarr:
@@ -120,7 +117,6 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.sonarr.loadbalancer.server.port=8989"
-      - "traefik.http.routers.sonarr.rule=Host(`sonarr.viggy96.me`)"
       - "traefik.http.routers.sonarr.middlewares=private@file"
 
   radarr:
@@ -143,7 +139,6 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.radarr.loadbalancer.server.port=7878"
-      - "traefik.http.routers.radarr.rule=Host(`radarr.viggy96.me`)"
       - "traefik.http.routers.radarr.middlewares=private@file"
 
   bazarr:
@@ -165,7 +160,6 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.bazarr.loadbalancer.server.port=6767"
-      - "traefik.http.routers.bazarr.rule=Host(`bazarr.viggy96.me`)"
       - "traefik.http.routers.bazarr.middlewares=private@file"
 
   lidarr:
@@ -188,7 +182,6 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.lidarr.loadbalancer.server.port=8686"
-      - "traefik.http.routers.lidarr.rule=Host(`lidarr.viggy96.me`)"
       - "traefik.http.routers.lidarr.middlewares=private@file"
 
   readarr:
@@ -211,6 +204,5 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.readarr.loadbalancer.server.port=8787"
-      - "traefik.http.routers.readarr.rule=Host(`readarr.viggy96.me`)"
       - "traefik.http.routers.readarr.middlewares=private@file"
 
