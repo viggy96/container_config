@@ -48,11 +48,16 @@ services:
       - "traefik.http.middlewares.www-rep.redirectregex.permanent=true"
       - "traefik.http.routers.www.middlewares=www-rep,secure@file"
 
-  openspeedtest:
-    image: openspeedtest/latest:latest
+  librespeed:
+    image: linuxserver/librespeed:latest
     restart: always
+    environment:
+      - PUID=33
+      - PGID=33
+      - TZ=America/Chicago
+      - PASSWORD=
     expose:
-      - 3000
+      - 80
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.openspeedtest.loadbalancer.server.port=3000"
