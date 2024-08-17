@@ -1,2 +1,2 @@
-service/traefik/acme.json
+traefik/acme.json
 media/gluetun.env
