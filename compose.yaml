@@ -1,3 +1,7 @@
+include:
+  - cloud/compose.yaml
+  - media/compose.yaml
+
 # service containers
 services:
 
@@ -71,10 +75,10 @@ services:
 networks:
 
   cloud:
-    external:
-      name: cloud_default
+    external: true
+    name: cloud_default
       
   media:
-    external:
-      name: media_default
+    external: true
+    name: media_default
 
