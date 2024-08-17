@@ -1,4 +1,5 @@
 # media containers
+name: media
 services:
 
   jellyfin:

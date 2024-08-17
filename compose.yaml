@@ -3,6 +3,7 @@ include:
   - media/compose.yaml
 
 # service containers
+name: service
 services:
 
   watchtower:
@@ -16,10 +17,6 @@ services:
     restart: always
     security_opt:
       - no-new-privileges:true
-    networks:
-      - default
-      - cloud
-      - media
     environment:
       - TZ=America/Chicago
     volumes:
@@ -70,15 +67,4 @@ services:
       - "traefik.http.middlewares.librespeed-limit.buffering.maxResponseBodyBytes=10000000000"
       - "traefik.http.middlewares.librespeed-limit.buffering.memResponseBodyBytes=10000000000"
       - "traefik.http.routers.librespeed.middlewares=librespeed-limit,private@file"
-
-# external networks 
-networks:
-
-  cloud:
-    external: true
-    name: cloud_default
-      
-  media:
-    external: true
-    name: media_default
 

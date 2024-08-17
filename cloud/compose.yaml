@@ -1,4 +1,5 @@
 # nextcloud containers
+name: cloud
 services:
 
   db:
