@@ -15,6 +15,10 @@ services:
   traefik:
     image: traefik:latest
     restart: always
+    networks:
+      - default
+      - cloud
+      - media
     security_opt:
       - no-new-privileges:true
     environment:
@@ -68,3 +72,6 @@ services:
       - "traefik.http.middlewares.librespeed-limit.buffering.memResponseBodyBytes=10000000000"
       - "traefik.http.routers.librespeed.middlewares=librespeed-limit,private@file"
 
+networks:
+  cloud:
+  media:
