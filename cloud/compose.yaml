@@ -6,7 +6,7 @@ services:
     image: mariadb:latest
     restart: always
     networks:
-      - media
+      - cloud 
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     volumes:
       - /tank/container_data/nextcloud_db:/var/lib/mysql
@@ -17,13 +17,13 @@ services:
     image: redis:latest
     restart: always
     networks:
-      - media
+      - cloud
 
   cron:
     image: nextcloud:production
     restart: always
     networks:
-      - media
+      - cloud
     volumes:
       - /tank/container_data/nextcloud_app:/var/www/html
       - /tank/cloud/nextcloud/data:/var/www/html/data
@@ -36,7 +36,7 @@ services:
     image: nextcloud:production
     restart: always
     networks:
-      - media
+      - cloud
     volumes:
       - ./nextcloud-apache.conf:/etc/apache2/conf-enabled/nextcloud-apache.conf:ro
       - /tank/container_data/nextcloud_app:/var/www/html
