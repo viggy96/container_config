@@ -1,2 +1,3 @@
+lldap.env
 traefik/acme.json
 media/gluetun.env
