@@ -12,6 +12,24 @@ services:
     volumes: 
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
+  lldap:
+    image: lldap/lldap:stable
+    expose:
+      - 17170
+    env_file:
+      - lldap.env
+    environment:
+      - UID=33
+      - GID=33
+      - TZ=America/Chicago
+      - LLDAP_LDAP_BASE_DN=dc=viggy96,dc=me
+    volumes:
+      - /tank/container_data/lldap:/data 
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.lldap.loadbalancer.server.port=17170"
+      - "traefik.http.routers.lldap.middlewares=private@file"
+
   traefik:
     image: traefik:latest
     restart: always
