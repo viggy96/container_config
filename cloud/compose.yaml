@@ -47,8 +47,8 @@ services:
     environment:
       - UID=33
       - GID=33
-      - MYSQL_HOST=db
-      - REDIS_HOST=redis
+      - MYSQL_HOST=nextcloud-db
+      - REDIS_HOST=nextcloud-redis
       - NEXTCLOUD_TABLE_PREFIX='oc_'
     env_file:
       - db.env
