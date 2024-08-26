@@ -3,7 +3,7 @@ name: cloud
 services:
 
   nextcloud-db:
-    image: mariadb:latest
+    image: mariadb:lts
     restart: always
     networks:
       - cloud 
