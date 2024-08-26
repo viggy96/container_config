@@ -29,8 +29,8 @@ services:
       - /tank/cloud/nextcloud/data:/var/www/html/data
     entrypoint: /cron.sh
     depends_on:
-      - db
-      - redis
+      - nextcloud-db
+      - nextcloud-redis
 
   nextcloud:
     image: nextcloud:production
