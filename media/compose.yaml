@@ -59,6 +59,8 @@ services:
       - UMASK=022
       - TZ=America/Chicago
       - WEBUI_PORT=8080
+    depends_on:
+      - gluetun
     volumes:
       - /tank/container_data/qbittorrent:/config
       - /tank/downloads:/downloads
