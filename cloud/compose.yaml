@@ -53,8 +53,8 @@ services:
     env_file:
       - db.env
     depends_on:
-      - db
-      - redis
+      - nextcloud-db
+      - nextcloud-redis
     expose:
       - 80
     labels:
