@@ -2,7 +2,7 @@
 name: cloud
 services:
 
-  db:
+  nextcloud-db:
     image: mariadb:latest
     restart: always
     networks:
@@ -13,13 +13,13 @@ services:
     env_file:
       - db.env 
 
-  redis:
+  nextcloud-redis:
     image: redis:latest
     restart: always
     networks:
       - cloud
 
-  cron:
+  nextcloud-cron:
     image: nextcloud:production
     restart: always
     networks:
