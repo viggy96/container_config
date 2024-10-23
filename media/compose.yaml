@@ -30,6 +30,24 @@ services:
       - "traefik.http.services.jellyfin.loadbalancer.server.port=8096"
       - "traefik.http.routers.jellyfin.middlewares=secure@file"
 
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    restart: always
+    networks:
+      - media
+    environment:
+      - UID=33
+      - GID=33
+      - TZ=America/Chicago
+    volumes:
+      - /tank/container_data/jellyseerr:/app/config
+    expose:
+      - 5055
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.jellyseerr.loadbalancer.server.port=5055"
+      - "traefik.http.routers.jellyseerr.middlewares=secure@file"
+
   gluetun:
     image: qmcgaw/gluetun:latest
     restart: always
