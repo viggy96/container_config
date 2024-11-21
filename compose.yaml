@@ -21,13 +21,12 @@ services:
       - media
     expose:
       - 17170
-    env_file:
-      - lldap.env
     environment:
       - UID=33
       - GID=33
       - TZ=America/Chicago
       - LLDAP_LDAP_BASE_DN=dc=viggy96,dc=me
+      - LLDAP_JWT_SECRET_FILE=/data/jwt_secret
     volumes:
       - /tank/container_data/lldap:/data 
     labels:
