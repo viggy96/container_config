@@ -104,7 +104,7 @@ services:
       - "traefik.http.routers.nzbget.middlewares=private@file"
 
   recyclarr:
-    image: recyclarr:recyclarr:latest
+    image: recyclarr/recyclarr:latest
     restart: always
     networks:
       - media
