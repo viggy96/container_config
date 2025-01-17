@@ -106,11 +106,10 @@ services:
   recyclarr:
     image: recyclarr/recyclarr:latest
     restart: always
+    user: 33:33
     networks:
       - media
     environment:
-      - UID=33
-      - GID=33
       - TZ=America/Chicago
     volumes:
       - /tank/container_data/recyclarr:/config
