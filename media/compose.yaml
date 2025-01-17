@@ -103,6 +103,18 @@ services:
       - "traefik.http.services.nzbget.loadbalancer.server.port=6789"
       - "traefik.http.routers.nzbget.middlewares=private@file"
 
+  recyclarr:
+    image: recyclarr:recyclarr:latest
+    restart: always
+    networks:
+      - media
+    environment:
+      - UID=33
+      - GID=33
+      - TZ=America/Chicago
+    volumes:
+      - /tank/container_data/recyclarr:/config
+
   prowlarr:
     image: linuxserver/prowlarr:develop
     restart: always
