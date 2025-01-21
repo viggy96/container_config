@@ -20,9 +20,9 @@ services:
       - /tmp/jellyfin:/transcodes
       - /tank/container_data/jellyfin_config:/config
       - /tank/container_data/jellyfin_cache:/cache
-      - /tank/cloud/videos:/media/video:ro
-      - /tank/cloud/music:/media/music:ro
-      - /tank/cloud/books:/media/books:ro
+      - /tank/cloud/videos:/media/video
+      - /tank/cloud/music:/media/music
+      - /tank/cloud/books:/media/books
     expose:
       - 8096
     labels:
