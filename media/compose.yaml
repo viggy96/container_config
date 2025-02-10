@@ -66,6 +66,7 @@ services:
       - "traefik.enable=true"
       - "traefik.http.services.qbittorrent.loadbalancer.server.port=8080"
       - "traefik.http.routers.qbittorrent.middlewares=private@file"
+      - "traefik.http.routers.qbittorrent.rule=Host(`qbittorrent.viggy96.me`)"
 
   qbittorrent:
     image: linuxserver/qbittorrent:latest
