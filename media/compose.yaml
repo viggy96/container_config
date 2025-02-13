@@ -243,6 +243,10 @@ services:
       - /tank/downloads:/downloads
     expose:
       - 8787
+    depends_on:
+      - qbittorrent
+      - nzbget
+      - prowlarr
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.readarr.loadbalancer.server.port=8787"
