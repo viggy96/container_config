@@ -248,5 +248,5 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.calibre.loadbalancer.server.port=8083"
-      - "traefik.http.routers.calibre.middlewares=secure@file"
+      - "traefik.http.routers.calibre.middlewares=private@file"
 
