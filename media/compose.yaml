@@ -228,8 +228,8 @@ services:
       - "traefik.http.services.lidarr.loadbalancer.server.port=8686"
       - "traefik.http.routers.lidarr.middlewares=private@file"
 
-  readarr:
-    image: linuxserver/readarr:nightly
+  calibre:
+    image: linuxserver/calibre-web:latest
     restart: always
     networks:
       - media
@@ -238,17 +238,13 @@ services:
       - PGID=33
       - TZ=America/Chicago
     volumes:
-      - /tank/container_data/readarr:/config
+      - /tank/container_data/calibre:/config
       - /tank/cloud/books:/books
       - /tank/downloads:/downloads
     expose:
-      - 8787
-    depends_on:
-      - qbittorrent
-      - nzbget
-      - prowlarr
+      - 8083
     labels:
       - "traefik.enable=true"
-      - "traefik.http.services.readarr.loadbalancer.server.port=8787"
-      - "traefik.http.routers.readarr.middlewares=private@file"
+      - "traefik.http.services.calibre.loadbalancer.server.port=8083"
+      - "traefik.http.routers.calibre.middlewares=secure@file"
 
