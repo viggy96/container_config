@@ -237,6 +237,8 @@ services:
       - PUID=33
       - PGID=33
       - TZ=America/Chicago
+      - DOCKER_MODS=linuxserver/mods:universal-calibre
+      - OAUTHLIB_RELAX_TOKEN_SCOPE=1
     volumes:
       - /tank/container_data/calibre:/config
       - /tank/cloud/books:/books
