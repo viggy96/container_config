@@ -228,8 +228,8 @@ services:
       - "traefik.http.services.lidarr.loadbalancer.server.port=8686"
       - "traefik.http.routers.lidarr.middlewares=private@file"
 
-  lazylibrarian:
-    image: linuxserver/lazylibrarian:latest
+  calibre:
+    image: linuxserver/calibre-web:latest
     restart: always
     networks:
       - media
@@ -237,19 +237,15 @@ services:
       - PUID=33
       - PGID=33
       - TZ=America/Chicago
-      - DOCKER_MODS=linuxserver/mods:universal-calibre|linuxserver/mods:lazylibrarian-ffmpeg
+      - DOCKER_MODS=linuxserver/mods:universal-calibre
+      - OAUTHLIB_RELAX_TOKEN_SCOPE=1
     volumes:
-      - /tank/container_data/lazylibrarian:/config
+      - /tank/container_data/calibre:/config
       - /tank/cloud/books:/books
       - /tank/downloads:/downloads
     expose:
-      - 5299
-    depends_on:
-      - qbittorrent
-      - nzbget
-      - prowlarr
+      - 8083
     labels:
       - "traefik.enable=true"
-      - "traefik.http.services.lazylibrarian.loadbalancer.server.port=5299"
-      - "traefik.http.routers.lazylibrarian.middlewares=private@file"
-
+      - "traefik.http.services.calibre.loadbalancer.server.port=8083"
+      - "traefik.http.routers.calibre.middlewares=private@file
