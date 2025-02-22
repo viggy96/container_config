@@ -127,7 +127,7 @@ services:
     volumes:
       - /tank/container_data/prowlarr:/config
     expose:
-      - 9696 
+      - 9696
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.prowlarr.loadbalancer.server.port=9696"
@@ -248,4 +248,4 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.calibre.loadbalancer.server.port=8083"
-      - "traefik.http.routers.calibre.middlewares=private@file
+      - "traefik.http.routers.calibre.middlewares=private@file"
