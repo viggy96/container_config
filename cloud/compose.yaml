@@ -4,6 +4,7 @@ services:
 
   nextcloud-db:
     image: mariadb:lts
+    init: true
     restart: always
     networks:
       - cloud 
@@ -15,12 +16,14 @@ services:
 
   nextcloud-redis:
     image: redis:latest
+    init: true
     restart: always
     networks:
       - cloud
 
   nextcloud-cron:
     image: nextcloud:production
+    init: true
     restart: always
     networks:
       - cloud
@@ -34,6 +37,7 @@ services:
 
   nextcloud:
     image: nextcloud:production
+    init: true
     restart: always
     networks:
       - cloud

@@ -8,12 +8,14 @@ services:
 
   watchtower:
     image: containrrr/watchtower:latest
+    init: true
     restart: always
     volumes: 
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
   lldap:
     image: lldap/lldap:stable
+    init: true
     restart: always
     networks:
       - default
@@ -36,6 +38,7 @@ services:
 
   traefik:
     image: traefik:latest
+    init: true
     restart: always
     networks:
       - default
@@ -60,6 +63,7 @@ services:
 
   www:
     image: viggy96/resume-website:latest
+    init: true
     restart: always
     environment:
       - ENV=production
@@ -75,6 +79,7 @@ services:
 
   librespeed:
     image: linuxserver/librespeed:latest
+    init: true
     restart: always
     environment:
       - PUID=33

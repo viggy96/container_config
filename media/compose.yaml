@@ -4,6 +4,7 @@ services:
 
   jellyfin:
     image: jellyfin/jellyfin:latest
+    init: true
     restart: always
     networks:
       - media
@@ -32,6 +33,7 @@ services:
 
   jellyseerr:
     image: fallenbagel/jellyseerr:latest
+    init: true
     restart: always
     networks:
       - media
@@ -50,6 +52,7 @@ services:
 
   gluetun:
     image: qmcgaw/gluetun:latest
+    init: true
     restart: always
     networks:
       - media
@@ -70,6 +73,7 @@ services:
 
   qbittorrent:
     image: linuxserver/qbittorrent:latest
+    init: true
     restart: always
     network_mode: service:gluetun
     environment:
@@ -86,6 +90,7 @@ services:
 
   nzbget:
     image: linuxserver/nzbget:latest
+    init: true
     restart: always
     networks:
       - media
@@ -106,6 +111,7 @@ services:
 
   recyclarr:
     image: recyclarr/recyclarr:latest
+    init: true
     restart: always
     user: 33:33
     networks:
@@ -117,6 +123,7 @@ services:
 
   prowlarr:
     image: linuxserver/prowlarr:develop
+    init: true
     restart: always
     networks:
       - media
@@ -135,6 +142,7 @@ services:
 
   sonarr:
     image: linuxserver/sonarr:latest
+    init: true
     restart: always
     networks:
       - media
@@ -159,6 +167,7 @@ services:
 
   radarr:
     image: linuxserver/radarr:latest
+    init: true
     restart: always
     networks:
       - media
@@ -183,6 +192,7 @@ services:
 
   bazarr:
     image: linuxserver/bazarr:latest
+    init: true
     restart: always
     networks:
       - media
@@ -206,6 +216,7 @@ services:
 
   lidarr:
     image: linuxserver/lidarr:latest
+    init: true
     restart: always
     networks:
       - media
@@ -230,6 +241,7 @@ services:
 
   calibre:
     image: linuxserver/calibre-web:latest
+    init: true
     restart: always
     networks:
       - media
