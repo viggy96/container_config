@@ -73,7 +73,6 @@ services:
 
   qbittorrent:
     image: linuxserver/qbittorrent:latest
-    init: true
     restart: always
     network_mode: service:gluetun
     environment:
@@ -90,7 +89,6 @@ services:
 
   nzbget:
     image: linuxserver/nzbget:latest
-    init: true
     restart: always
     networks:
       - media
@@ -123,7 +121,6 @@ services:
 
   prowlarr:
     image: linuxserver/prowlarr:develop
-    init: true
     restart: always
     networks:
       - media
@@ -142,7 +139,6 @@ services:
 
   sonarr:
     image: linuxserver/sonarr:latest
-    init: true
     restart: always
     networks:
       - media
@@ -167,7 +163,6 @@ services:
 
   radarr:
     image: linuxserver/radarr:latest
-    init: true
     restart: always
     networks:
       - media
@@ -192,7 +187,6 @@ services:
 
   bazarr:
     image: linuxserver/bazarr:latest
-    init: true
     restart: always
     networks:
       - media
@@ -216,7 +210,6 @@ services:
 
   lidarr:
     image: linuxserver/lidarr:latest
-    init: true
     restart: always
     networks:
       - media
@@ -241,7 +234,6 @@ services:
 
   calibre:
     image: linuxserver/calibre-web:latest
-    init: true
     restart: always
     networks:
       - media

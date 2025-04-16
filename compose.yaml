@@ -79,7 +79,6 @@ services:
 
   librespeed:
     image: linuxserver/librespeed:latest
-    init: true
     restart: always
     environment:
       - PUID=33
