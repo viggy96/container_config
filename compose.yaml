@@ -10,7 +10,7 @@ services:
     image: containrrr/watchtower:latest
     init: true
     restart: always
-    volumes: 
+    volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
   lldap:
@@ -30,7 +30,7 @@ services:
       - LLDAP_LDAP_BASE_DN=dc=viggy96,dc=me
       - LLDAP_JWT_SECRET_FILE=/data/jwt_secret
     volumes:
-      - /tank/container_data/lldap:/data 
+      - /tank/containers/lldap:/data
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.lldap.loadbalancer.server.port=17170"
@@ -69,7 +69,7 @@ services:
       - ENV=production
     expose:
       - 443
-    labels: 
+    labels:
       - "traefik.enable=true"
       - "traefik.http.services.www.loadbalancer.server.port=443"
       - "traefik.http.middlewares.www-rep.redirectregex.regex=^https://viggy96.me/(.*)"
@@ -86,7 +86,7 @@ services:
       - TZ=America/Chicago
       - PASSWORD=
     volumes:
-      - /tank/container_data/librespeed:/config
+      - /tank/containers/librespeed:/config
     expose:
       - 80
     labels:

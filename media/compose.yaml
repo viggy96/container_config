@@ -19,8 +19,8 @@ services:
       - /dev/dri
     volumes:
       - /tmp/jellyfin:/transcodes
-      - /tank/container_data/jellyfin:/config
-      - /tank/container_data/jellyfin-cache:/cache
+      - /tank/containers/jellyfin:/config
+      - /tank/containers/jellyfin-cache:/cache
       - /tank/cloud/videos:/media/video
       - /tank/cloud/music:/media/music
       - /tank/cloud/books:/media/books
@@ -42,7 +42,7 @@ services:
       - GID=33
       - TZ=America/Chicago
     volumes:
-      - /tank/container_data/jellyseerr:/app/config
+      - /tank/containers/jellyseerr:/app/config
     expose:
       - 5055
     labels:
@@ -84,7 +84,7 @@ services:
     depends_on:
       - gluetun
     volumes:
-      - /tank/container_data/qbittorrent:/config
+      - /tank/containers/qbittorrent:/config
       - /tank/downloads:/downloads
 
   nzbget:
@@ -98,7 +98,7 @@ services:
       - UMASK=022
       - TZ=America/Chicago
     volumes:
-      - /tank/container_data/nzbget:/config
+      - /tank/containers/nzbget:/config
       - /tank/downloads/nzbget:/downloads
     expose:
       - 6789
@@ -117,7 +117,7 @@ services:
     environment:
       - TZ=America/Chicago
     volumes:
-      - /tank/container_data/recyclarr:/config
+      - /tank/containers/recyclarr:/config
 
   prowlarr:
     image: linuxserver/prowlarr:latest
@@ -129,7 +129,7 @@ services:
       - PGID=33
       - TZ=America/Chicago
     volumes:
-      - /tank/container_data/prowlarr:/config
+      - /tank/containers/prowlarr:/config
     expose:
       - 9696
     labels:
@@ -147,7 +147,7 @@ services:
       - PGID=33
       - TZ=America/Chicago
     volumes:
-      - /tank/container_data/sonarr:/config
+      - /tank/containers/sonarr:/config
       - /tank/cloud/videos/TV:/tv
       - /tank/downloads:/downloads
     expose:
@@ -171,7 +171,7 @@ services:
       - PGID=33
       - TZ=America/Chicago
     volumes:
-      - /tank/container_data/radarr:/config
+      - /tank/containers/radarr:/config
       - /tank/cloud/videos/Movies:/movies
       - /tank/downloads:/downloads
     expose:
@@ -195,7 +195,7 @@ services:
       - PGID=33
       - TZ=America/Chicago
     volumes:
-      - /tank/container_data/bazarr:/config
+      - /tank/containers/bazarr:/config
       - /tank/cloud/videos/TV:/tv
       - /tank/cloud/videos/Movies:/movies
     expose:
@@ -218,7 +218,7 @@ services:
       - PGID=33
       - TZ=America/Chicago
     volumes:
-      - /tank/container_data/lidarr:/config
+      - /tank/containers/lidarr:/config
       - /tank/cloud/music:/music
       - /tank/downloads:/downloads
     expose:
@@ -244,7 +244,7 @@ services:
       - DOCKER_MODS=linuxserver/mods:universal-calibre
       - OAUTHLIB_RELAX_TOKEN_SCOPE=1
     volumes:
-      - /tank/container_data/calibre:/config
+      - /tank/containers/calibre:/config
       - /tank/cloud/books:/books
       - /tank/downloads:/downloads
     expose:

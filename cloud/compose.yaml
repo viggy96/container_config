@@ -7,12 +7,12 @@ services:
     init: true
     restart: always
     networks:
-      - cloud 
+      - cloud
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     volumes:
-      - /tank/container_data/nextcloud-db:/var/lib/mysql
+      - /tank/containers/nextcloud-db:/var/lib/mysql
     env_file:
-      - db.env 
+      - db.env
 
   nextcloud-redis:
     image: redis:latest
@@ -28,7 +28,7 @@ services:
     networks:
       - cloud
     volumes:
-      - /tank/container_data/nextcloud:/var/www/html
+      - /tank/containers/nextcloud:/var/www/html
       - /tank/cloud/nextcloud/data:/var/www/html/data
     entrypoint: /cron.sh
     depends_on:
@@ -43,7 +43,7 @@ services:
       - cloud
     volumes:
       - ./nextcloud-apache.conf:/etc/apache2/conf-enabled/nextcloud-apache.conf:ro
-      - /tank/container_data/nextcloud:/var/www/html
+      - /tank/containers/nextcloud:/var/www/html
       - /tank/cloud/nextcloud/data:/var/www/html/data
       - /tank/cloud/videos:/videos:ro
       - /tank/cloud/music:/music
