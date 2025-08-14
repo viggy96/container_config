@@ -19,8 +19,8 @@ services:
       - /dev/dri
     volumes:
       - /tmp/jellyfin:/transcodes
-      - /tank/container_data/jellyfin_config:/config
-      - /tank/container_data/jellyfin_cache:/cache
+      - /tank/container_data/jellyfin:/config
+      - /tank/container_data/jellyfin-cache:/cache
       - /tank/cloud/videos:/media/video
       - /tank/cloud/music:/media/music
       - /tank/cloud/books:/media/books
