@@ -12,6 +12,7 @@ services:
     volumes:
       - /tank/containers/nextcloud-db:/var/lib/mysql
     env_file:
+      - ../default.env
       - db.env
 
   nextcloud-redis:
@@ -48,14 +49,13 @@ services:
       - /tank/cloud/videos:/videos:ro
       - /tank/cloud/music:/music
       - /tank/cloud/books:/books
+    env_file:
+      - ../default.env
+      - db.env
     environment:
-      - UID=33
-      - GID=33
       - MYSQL_HOST=nextcloud-db
       - REDIS_HOST=nextcloud-redis
       - NEXTCLOUD_TABLE_PREFIX='oc_'
-    env_file:
-      - db.env
     depends_on:
       - nextcloud-db
       - nextcloud-redis
@@ -69,4 +69,3 @@ services:
       - "traefik.http.middlewares.nextcloud-rep.redirectregex.replacement=https://$$1/remote.php/dav/"
       - "traefik.http.middlewares.nextcloud-rep.redirectregex.permanent=true"
       - "traefik.http.routers.nextcloud.middlewares=nextcloud-rep,secure@file"
-

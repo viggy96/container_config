@@ -8,10 +8,8 @@ services:
     restart: always
     networks:
       - media
-    environment:
-      - UID=33
-      - GID=33
-      - TZ=America/Chicago
+    env_file:
+      - ../default.env
     group_add:
       - 44
       - 123
@@ -37,10 +35,8 @@ services:
     restart: always
     networks:
       - media
-    environment:
-      - UID=33
-      - GID=33
-      - TZ=America/Chicago
+    env_file:
+      - ../default.env
     volumes:
       - /tank/containers/jellyseerr:/app/config
     expose:
@@ -75,11 +71,10 @@ services:
     image: linuxserver/qbittorrent:latest
     restart: always
     network_mode: service:gluetun
+    env_file:
+      - ../default.env
     environment:
-      - PUID=33
-      - PGID=33
       - UMASK=022
-      - TZ=America/Chicago
       - WEBUI_PORT=8080
     depends_on:
       - gluetun
@@ -92,11 +87,10 @@ services:
     restart: always
     networks:
       - media
+    env_file:
+      - ../default.env
     environment:
-      - PUID=33
-      - PGID=33
       - UMASK=022
-      - TZ=America/Chicago
     volumes:
       - /tank/containers/nzbget:/config
       - /tank/downloads/nzbget:/downloads
@@ -114,8 +108,8 @@ services:
     user: 33:33
     networks:
       - media
-    environment:
-      - TZ=America/Chicago
+    env_file:
+      - ../default.env
     volumes:
       - /tank/containers/recyclarr:/config
 
@@ -124,10 +118,8 @@ services:
     restart: always
     networks:
       - media
-    environment:
-      - PUID=33
-      - PGID=33
-      - TZ=America/Chicago
+    env_file:
+      - ../default.env
     volumes:
       - /tank/containers/prowlarr:/config
     expose:
@@ -142,10 +134,8 @@ services:
     restart: always
     networks:
       - media
-    environment:
-      - PUID=33
-      - PGID=33
-      - TZ=America/Chicago
+    env_file:
+      - ../default.env
     volumes:
       - /tank/containers/sonarr:/config
       - /tank/cloud/videos/TV:/tv
@@ -166,10 +156,8 @@ services:
     restart: always
     networks:
       - media
-    environment:
-      - PUID=33
-      - PGID=33
-      - TZ=America/Chicago
+    env_file:
+      - ../default.env
     volumes:
       - /tank/containers/radarr:/config
       - /tank/cloud/videos/Movies:/movies
@@ -190,10 +178,8 @@ services:
     restart: always
     networks:
       - media
-    environment:
-      - PUID=33
-      - PGID=33
-      - TZ=America/Chicago
+    env_file:
+      - ../default.env
     volumes:
       - /tank/containers/bazarr:/config
       - /tank/cloud/videos/TV:/tv
@@ -213,10 +199,8 @@ services:
     restart: always
     networks:
       - media
-    environment:
-      - PUID=33
-      - PGID=33
-      - TZ=America/Chicago
+    env_file:
+      - ../default.env
     volumes:
       - /tank/containers/lidarr:/config
       - /tank/cloud/music:/music
@@ -237,10 +221,9 @@ services:
     restart: always
     networks:
       - media
+    env_file:
+      - ../default.env
     environment:
-      - PUID=33
-      - PGID=33
-      - TZ=America/Chicago
       - DOCKER_MODS=linuxserver/mods:universal-calibre
       - OAUTHLIB_RELAX_TOKEN_SCOPE=1
     volumes:
