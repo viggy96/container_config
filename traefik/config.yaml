@@ -38,6 +38,7 @@ tls:
       curvePreferences:
         - "CurveP521"
         - "CurveP384"
+        - "X25519MLKEM768"
       cipherSuites:
         - "TLS_AES_256_GCM_SHA384"
         - "TLS_CHACHA20_POLY1305_SHA256"
