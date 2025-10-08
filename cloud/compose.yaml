@@ -46,7 +46,7 @@ services:
       - ./nextcloud-apache.conf:/etc/apache2/conf-enabled/nextcloud-apache.conf:ro
       - /tank/containers/nextcloud:/var/www/html
       - /tank/cloud/nextcloud/data:/var/www/html/data
-      - /tank/cloud/videos:/videos:ro
+      - /tank/cloud/video:/video:ro
       - /tank/cloud/music:/music
       - /tank/cloud/books:/books
     env_file:

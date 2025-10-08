@@ -19,7 +19,7 @@ services:
       - /tmp/jellyfin:/transcodes
       - /tank/containers/jellyfin:/config
       - /tank/containers/jellyfin-cache:/cache
-      - /tank/cloud/videos:/media/video
+      - /tank/cloud/video:/media/video
       - /tank/cloud/music:/media/music
       - /tank/cloud/books:/media/books
     expose:
@@ -138,7 +138,7 @@ services:
       - ../default.env
     volumes:
       - /tank/containers/sonarr:/config
-      - /tank/cloud/videos/TV:/tv
+      - /tank/cloud/video/tv:/tv
       - /tank/downloads:/downloads
     expose:
       - 8989
@@ -160,7 +160,7 @@ services:
       - ../default.env
     volumes:
       - /tank/containers/radarr:/config
-      - /tank/cloud/videos/Movies:/movies
+      - /tank/cloud/video/movies:/movies
       - /tank/downloads:/downloads
     expose:
       - 7878
@@ -182,8 +182,8 @@ services:
       - ../default.env
     volumes:
       - /tank/containers/bazarr:/config
-      - /tank/cloud/videos/TV:/tv
-      - /tank/cloud/videos/Movies:/movies
+      - /tank/cloud/video/tv:/tv
+      - /tank/cloud/video/movies:/movies
     expose:
       - 6767
     depends_on:
