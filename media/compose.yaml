@@ -47,7 +47,7 @@ services:
       - "traefik.http.routers.jellyseerr.middlewares=secure@file"
 
   gluetun:
-    image: qmcgaw/gluetun:latest
+    image: qmcgaw/gluetun:v3
     init: true
     restart: always
     networks:
