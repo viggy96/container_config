@@ -234,7 +234,7 @@ services:
       - nzbget
       - prowlarr
     labels:
-      - "tarefik.enable=true"
+      - "traefik.enable=true"
       - "traefik.http.services.mylar.loadbalancer.server.port=8090"
       - "traefik.http.routers.mylar.middlewares=private@file"
 
