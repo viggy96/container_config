@@ -22,6 +22,7 @@ services:
       - /tank/cloud/video:/media/video
       - /tank/cloud/music:/media/music
       - /tank/cloud/books:/media/books
+      - /tank/cloud/comics:/media/comics
     expose:
       - 8096
     labels:
