@@ -216,27 +216,27 @@ services:
       - "traefik.http.services.lidarr.loadbalancer.server.port=8686"
       - "traefik.http.routers.lidarr.middlewares=private@file"
 
-  mylar:
-    image: linuxserver/mylar3:latest
+  kapowarr:
+    image: mrcas/kapowarr:latest
     restart: always
     networks:
       - media
     env_file:
       - ../default.env
     volumes:
-      - /tank/containers/mylar:/config
+      - /tank/containers/kapowarr:/app/db
       - /tank/cloud/comics:/comics
       - /tank/downloads:/downloads
     expose:
-      - 8090
+      - 5656
     depends_on:
       - qbittorrent
       - nzbget
       - prowlarr
     labels:
       - "traefik.enable=true"
-      - "traefik.http.services.mylar.loadbalancer.server.port=8090"
-      - "traefik.http.routers.mylar.middlewares=private@file"
+      - "traefik.http.services.kapowarr.loadbalancer.server.port=5656"
+      - "traefik.http.routers.kapowarr.middlewares=private@file"
 
   calibre:
     image: linuxserver/calibre-web:latest
