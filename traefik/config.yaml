@@ -8,7 +8,7 @@ http:
             ClientId: "${OIDC_CLIENT_ID}"
             ClientSecret: "${OIDC_CLIENT_SECRET}"
           Scopes: ["openid", "profile", "email"]
-          BypassAuthenticationRule: "PathRegexp(^/api/.*)"
+          BypassAuthenticationRule: "PathRegexp(`^/api/.*`)"
 
     default-headers:
       headers:
