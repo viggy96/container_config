@@ -35,6 +35,31 @@ services:
       - "traefik.http.services.lldap.loadbalancer.server.port=17170"
       - "traefik.http.routers.lldap.middlewares=private@file"
 
+  pocket-id:
+    image: ghcr.io/pocket-id/pocket-id:v2
+    restart: always
+    networks:
+      - default
+      - cloud
+      - media
+    expose:
+      - 1411
+    env_file:
+      - default.env
+      - ./pocket-id/pocket-id.env
+    volumes:
+      - /tank/containers/pocket-id:/app/data
+    healthcheck:
+      test: [ "CMD", "/app/pocket-id", "healthcheck" ]
+      interval: 1m30s
+      timeout: 5s
+      retries: 2
+      start_period: 10s
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.pocket-id.loadbalancer.server.port=1411"
+      - "traefik.http.routers.pocket-id.middlewares=private@file"
+
   traefik:
     image: traefik:latest
     init: true
