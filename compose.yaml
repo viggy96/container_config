@@ -46,7 +46,7 @@ services:
       - 1411
     env_file:
       - default.env
-      - ./pocket-id/pocket-id.env
+      - ./pocket-id/config.env
       - ./pocket-id/ldap_pass.env
     volumes:
       - /tank/containers/pocket-id:/app/data
