@@ -73,6 +73,8 @@ services:
       - media
     security_opt:
       - no-new-privileges:true
+    env_file:
+      - ./traefik/secrets.env
     environment:
       - TZ=America/Chicago
     volumes:

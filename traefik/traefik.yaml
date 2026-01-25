@@ -38,3 +38,9 @@ certificatesResolvers:
       storage: "/etc/traefik/acme.json"
       tlsChallenge: true
 
+experimental:
+  plugins:
+    traefik-oidc-auth:
+      moduleName: "github.com/sevensolutions/traefik-oidc-auth"
+      version: "v0.17.0"
+
