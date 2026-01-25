@@ -8,6 +8,7 @@ http:
             ClientId: "${OIDC_CLIENT_ID}"
             ClientSecret: "${OIDC_CLIENT_SECRET}"
           Scopes: ["openid", "profile", "email"]
+          BypassAuthenticationRule: "PathRegexp(^/api/.*)"
 
     default-headers:
       headers:
@@ -31,7 +32,7 @@ http:
       chain:
         middlewares:
           - default-headers
-          - local-only
+          - oidc-auth
 
     secure:
       chain:

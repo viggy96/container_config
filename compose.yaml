@@ -33,7 +33,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.lldap.loadbalancer.server.port=17170"
-      - "traefik.http.routers.lldap.middlewares=private@file"
+      - "traefik.http.routers.lldap.middlewares=local-only@file,private@file"
 
   pocket-id:
     image: ghcr.io/pocket-id/pocket-id:v2
@@ -61,7 +61,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.pocket-id.loadbalancer.server.port=1411"
-      - "traefik.http.routers.pocket-id.middlewares=private@file"
+      - "traefik.http.routers.pocket-id.middlewares=local-only@file,secure@file"
 
   traefik:
     image: traefik:latest
