@@ -42,6 +42,8 @@ services:
       - /tank/containers/jellyseerr:/app/config
     expose:
       - 5055
+    depends_on:
+      - jellyfin
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.jellyseerr.loadbalancer.server.port=5055"

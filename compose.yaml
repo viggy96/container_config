@@ -44,6 +44,8 @@ services:
       - media
     expose:
       - 1411
+    depends_on:
+      - lldap
     env_file:
       - default.env
       - ./pocket-id/config.env
