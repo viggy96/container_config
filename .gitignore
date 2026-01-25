@@ -1,4 +1,5 @@
 lldap.env
 traefik/acme.json
+traefik/secrets.env
 pocket-id/ldap_pass.env
 media/gluetun.env
