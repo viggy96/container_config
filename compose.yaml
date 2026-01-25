@@ -36,8 +36,10 @@ services:
       - "traefik.http.routers.lldap.middlewares=local-only@file,private@file"
 
   pocket-id:
-    image: ghcr.io/pocket-id/pocket-id:v2
+    image: ghcr.io/pocket-id/pocket-id:v2-distroless
     restart: always
+    read_only: true
+    user: '1000:1000'
     networks:
       - default
       - cloud
