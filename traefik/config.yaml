@@ -9,6 +9,8 @@ http:
             ClientSecret: "${OIDC_CLIENT_SECRET}"
           Scopes: ["openid", "profile", "email", "groups"]
           BypassAuthenticationRule: "PathRegexp(`^/api/.*`)"
+          SessionCookie:
+            Domain: ".viggy96.me"
 
     default-headers:
       headers:
