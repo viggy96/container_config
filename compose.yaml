@@ -63,7 +63,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.pocket-id.loadbalancer.server.port=1411"
-      - "traefik.http.routers.pocket-id.middlewares=local-only@file,secure@file"
+      - "traefik.http.routers.pocket-id.middlewares=secure@file"
 
   traefik:
     image: traefik:latest
