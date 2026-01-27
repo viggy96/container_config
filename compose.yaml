@@ -94,6 +94,21 @@ services:
       - "traefik.http.routers.traefik.middlewares=private@file"
       - "traefik.http.routers.traefik.service=api@internal"
 
+  home-assistant:
+    image: homeassistant/homeassistant:stable
+    init: true
+    restart: always
+    expose:
+      - 8123
+    env_file:
+      - default.env
+    volumes:
+      - /tank/containers/home-assistant:/config
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.home-assistant.loadbalancer.server.port=8123"
+      - "traefik.http.routers.home-assistant.middlewares=secure@file"
+
   www:
     image: viggy96/resume-website:latest
     init: true
