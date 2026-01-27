@@ -95,7 +95,7 @@ services:
       - "traefik.http.routers.traefik.service=api@internal"
 
   home-assistant:
-    image: homeassistant/homeassistant:stable
+    image: homeassistant/home-assistant:stable
     init: true
     restart: always
     expose:
