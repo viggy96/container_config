@@ -96,7 +96,6 @@ services:
 
   home-assistant:
     image: homeassistant/home-assistant:stable
-    init: true
     restart: always
     expose:
       - 8123
