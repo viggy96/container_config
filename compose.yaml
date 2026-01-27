@@ -37,6 +37,7 @@ services:
 
   pocket-id:
     image: ghcr.io/pocket-id/pocket-id:v2-distroless
+    init: true
     restart: always
     read_only: true
     user: '1000:1000'
