@@ -3,14 +3,14 @@ http:
     oidc-auth:
       plugin:
         traefik-oidc-auth:
+          SessionCookie:
+            Domain: ".viggy96.me"
           Provider:
-            Url: "https://pocket-id.viggy96.me"
+            Url: "https://id.viggy96.me"
             ClientId: "${OIDC_CLIENT_ID}"
             ClientSecret: "${OIDC_CLIENT_SECRET}"
           Scopes: ["openid", "profile", "email", "groups"]
           BypassAuthenticationRule: "PathRegexp(`^/api/.*`)"
-          SessionCookie:
-            Domain: ".viggy96.me"
 
     default-headers:
       headers:

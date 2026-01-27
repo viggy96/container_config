@@ -65,6 +65,7 @@ services:
       - "traefik.enable=true"
       - "traefik.http.services.pocket-id.loadbalancer.server.port=1411"
       - "traefik.http.routers.pocket-id.middlewares=secure@file"
+      - "traefik.http.routers.pocket-id.rule=Host(`id.viggy96.me`)"
 
   traefik:
     image: traefik:latest
