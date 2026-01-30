@@ -33,7 +33,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.lldap.loadbalancer.server.port=17170"
-      - "traefik.http.routers.lldap.middlewares=local-only@file,private@file"
+      - "traefik.http.routers.lldap.middlewares=private@file"
 
   pocket-id:
     image: ghcr.io/pocket-id/pocket-id:v2-distroless
