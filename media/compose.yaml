@@ -219,15 +219,15 @@ services:
       - "traefik.http.services.lidarr.loadbalancer.server.port=8686"
       - "traefik.http.routers.lidarr.middlewares=private@file"
 
-  readarr:
-    image: linuxserver/readarr:develop
+  bookshelf:
+    image: ghcr.io/pennydreadful/bookshelf:hardcover 
     restart: always
     networks:
       - media
     env_file:
       - ../default.env
     volumes:
-      - /tank/containers/readarr:/config
+      - /tank/containers/bookshelf:/config
       - /tank/cloud/books:/books
       - /tank/downloads:/downloads
     expose:
@@ -238,8 +238,8 @@ services:
       - prowlarr
     labels:
       - "traefik.enable=true"
-      - "traefik.http.services.readarr.loadbalancer.server.port=8787"
-      - "traefik.http.routers.readarr.middlewares=private@file"
+      - "traefik.http.services.bookshelf.loadbalancer.server.port=8787"
+      - "traefik.http.routers.bookshelf.middlewares=private@file"
 
 
   kapowarr:
