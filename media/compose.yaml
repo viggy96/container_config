@@ -219,29 +219,6 @@ services:
       - "traefik.http.services.lidarr.loadbalancer.server.port=8686"
       - "traefik.http.routers.lidarr.middlewares=private@file"
 
-  bookshelf:
-    image: ghcr.io/pennydreadful/bookshelf:hardcover 
-    restart: always
-    networks:
-      - media
-    env_file:
-      - ../default.env
-    volumes:
-      - /tank/containers/bookshelf:/config
-      - /tank/cloud/books:/books
-      - /tank/downloads:/downloads
-    expose:
-      - 8787
-    depends_on:
-      - qbittorrent
-      - nzbget
-      - prowlarr
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.services.bookshelf.loadbalancer.server.port=8787"
-      - "traefik.http.routers.bookshelf.middlewares=private@file"
-
-
   kapowarr:
     image: mrcas/kapowarr:latest
     restart: always
@@ -264,23 +241,3 @@ services:
       - "traefik.http.services.kapowarr.loadbalancer.server.port=5656"
       - "traefik.http.routers.kapowarr.middlewares=private@file"
 
-  calibre:
-    image: linuxserver/calibre-web:latest
-    restart: always
-    networks:
-      - media
-    env_file:
-      - ../default.env
-    environment:
-      - DOCKER_MODS=linuxserver/mods:universal-calibre
-      - OAUTHLIB_RELAX_TOKEN_SCOPE=1
-    volumes:
-      - /tank/containers/calibre:/config
-      - /tank/cloud/books:/books
-      - /tank/downloads:/downloads
-    expose:
-      - 8083
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.services.calibre.loadbalancer.server.port=8083"
-      - "traefik.http.routers.calibre.middlewares=private@file"
