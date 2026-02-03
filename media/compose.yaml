@@ -219,6 +219,29 @@ services:
       - "traefik.http.services.lidarr.loadbalancer.server.port=8686"
       - "traefik.http.routers.lidarr.middlewares=private@file"
 
+  readarr:
+    image: linuxserver/readarr:develop
+    restart: always
+    networks:
+      - media
+    env_file:
+      - ../default.env
+    volumes:
+      - /tank/containers/readarr:/config
+      - /tank/cloud/books:/books
+      - /tank/downloads:/downloads
+    expose:
+      - 8787
+    depends_on:
+      - qbittorrent
+      - nzbget
+      - prowlarr
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.readarr.loadbalancer.server.port=8787"
+      - "traefik.http.routers.readarr.middlewares=private@file"
+
+
   kapowarr:
     image: mrcas/kapowarr:latest
     restart: always
