@@ -279,7 +279,7 @@ services:
       - MYSQL_USER=booklore
       - MYSQL_PASSWORD=pass
     volumes:
-      - /tank/containers/booklore-db:/config
+      - /tank/containers/booklore-db:/var/lib/mysql
     healthcheck:
       test: [ "CMD", "mariadb-admin", "ping", "-h", "localhost" ]
       interval: 5s
