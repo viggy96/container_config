@@ -21,8 +21,6 @@ services:
       - default
       - cloud
       - media
-    expose:
-      - 17170
     env_file:
       - default.env
     environment:
@@ -30,6 +28,8 @@ services:
       - LLDAP_JWT_SECRET_FILE=/data/jwt_secret
     volumes:
       - /tank/containers/lldap:/data
+    expose:
+      - 17170
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.lldap.loadbalancer.server.port=17170"
@@ -45,16 +45,16 @@ services:
       - default
       - cloud
       - media
-    expose:
-      - 1411
-    depends_on:
-      - lldap
     env_file:
       - default.env
       - ./pocket-id/config.env
       - ./pocket-id/ldap_pass.env
     volumes:
       - /tank/containers/pocket-id:/app/data
+    expose:
+      - 1411
+    depends_on:
+      - lldap
     healthcheck:
       test: [ "CMD", "/app/pocket-id", "healthcheck" ]
       interval: 1m30s
@@ -97,12 +97,12 @@ services:
   home-assistant:
     image: homeassistant/home-assistant:stable
     restart: always
+    volumes:
+      - /tank/containers/home-assistant:/config
     expose:
       - 8123
     env_file:
       - default.env
-    volumes:
-      - /tank/containers/home-assistant:/config
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.home-assistant.loadbalancer.server.port=8123"
