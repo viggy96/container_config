@@ -271,6 +271,8 @@ services:
   booklore-db:
     image: mariadb:lts
     restart: always
+    networks:
+      - media
     env_file:
       - ../default.env
     environment:
