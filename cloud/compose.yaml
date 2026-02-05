@@ -49,6 +49,7 @@ services:
       - /tank/cloud/video:/video:ro
       - /tank/cloud/music:/music
       - /tank/cloud/books:/books
+      - /tank/cloud/comics:/comics
     env_file:
       - ../default.env
       - db.env
