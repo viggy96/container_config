@@ -241,50 +241,25 @@ services:
       - "traefik.http.services.kapowarr.loadbalancer.server.port=5656"
       - "traefik.http.routers.kapowarr.middlewares=private@file"
 
-  booklore:
-    image: booklore/booklore:latest
+  kavita:
+    image: linuxserver/kavita:latest
     restart: always
     networks:
       - media
     env_file:
       - ../default.env
-    environment:
-      - DATABASE_URL=jdbc:mariadb://booklore-db:3306/booklore
-      - DATABASE_USERNAME=booklore
-      - DATABASE_PASSWORD=pass
-      - BOOKLORE_PORT=6060
     volumes:
-      - /tank/containers/booklore:/app/data
+      - /tank/containers/kavita:/config
       - /tank/cloud/comics:/comics
       - /tank/cloud/books:/books
-      - /tank/downloads/bookdrop:/bookdrop
     expose:
-      - 6060
+      - 5000
     depends_on:
-      booklore-db:
-        condition: service_healthy
+      - qbittorrent
+      - nzbget
+      - prowlarr
     labels:
       - "traefik.enable=true"
-      - "traefik.http.services.booklore.loadbalancer.server.port=6060"
-      - "traefik.http.routers.booklore.middlewares=secure@file"
-
-  booklore-db:
-    image: mariadb:lts
-    restart: always
-    networks:
-      - media
-    env_file:
-      - ../default.env
-    environment:
-      - MYSQL_ROOT_PASSWORD=pass
-      - MYSQL_DATABASE=booklore
-      - MYSQL_USER=booklore
-      - MYSQL_PASSWORD=pass
-    volumes:
-      - /tank/containers/booklore-db:/var/lib/mysql
-    healthcheck:
-      test: [ "CMD", "mariadb-admin", "ping", "-h", "localhost" ]
-      interval: 5s
-      timeout: 5s
-      retries: 10
+      - "traefik.http.services.kavita.loadbalancer.server.port=5000"
+      - "traefik.http.routers.kavita.middlewares=secure@file"
    
