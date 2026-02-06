@@ -254,12 +254,8 @@ services:
       - /tank/cloud/books:/books
     expose:
       - 5000
-    depends_on:
-      - qbittorrent
-      - nzbget
-      - prowlarr
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.kavita.loadbalancer.server.port=5000"
       - "traefik.http.routers.kavita.middlewares=secure@file"
-   
+ 
