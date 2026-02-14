@@ -7,18 +7,20 @@ name: service
 services:
 
   dockwatch:
-    image: ghcr.io/notifiarr/dockwatch:latest
+    image: ghcr.io/notifiarr/dockwatch:develop
     restart: always
     env_file:
       - default.env
+    environment:
+      - DISABLE_IPV6=1
     volumes:
       - /tank/containers/dockwatch:/config
       - /var/run/docker.sock:/var/run/docker.sock:ro
     expose:
-      - 9999
+      - 80
     labels:
       - "traefik.enable=true"
-      - "traefik.http.services.dockwatch.loadbalancer.server.port=9999"
+      - "traefik.http.services.dockwatch.loadbalancer.server.port=80" 
       - "traefik.http.routers.dockwatch.middlewares=private@file"
 
   lldap:
