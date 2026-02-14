@@ -3,6 +3,7 @@ http:
     oidc-auth:
       plugin:
         traefik-oidc-auth:
+          Secret: "${OIDC_SECRET}"
           SessionCookie:
             Domain: ".viggy96.me"
           Provider:
@@ -44,7 +45,6 @@ http:
 tls:
   options:
     default:
-      preferServerCipherSuites: true
       minVersion: VersionTLS12
       sniStrict: true
       curvePreferences:
