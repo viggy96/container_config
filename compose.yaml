@@ -6,15 +6,24 @@ include:
 name: service
 services:
 
-  watchtower:
-    image: containrrr/watchtower:latest
+  dockwatch:
+    image: ghcr.io/notifiarr/dockwatch:latest
     init: true
     restart: always
+    env_file:
+      - default.env
     volumes:
+      - /tank/containers/dockwatch:/config
       - /var/run/docker.sock:/var/run/docker.sock:ro
+    expose:
+      - 9999
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.dockwatch.loadbalancer.server.port=9999"
+      - "traefik.http.routers.dockwatch.middlewares=private@file"
 
   lldap:
-    image: lldap/lldap:stable
+    image: ghcr.io/lldap/lldap:stable
     init: true
     restart: always
     networks:
@@ -68,7 +77,7 @@ services:
       - "traefik.http.routers.pocket-id.rule=Host(`id.viggy96.me`)"
 
   traefik:
-    image: traefik:latest
+    image: ghcr.io/traefik/traefik:latest
     init: true
     restart: always
     networks:
@@ -95,7 +104,7 @@ services:
       - "traefik.http.routers.traefik.service=api@internal"
 
   home-assistant:
-    image: homeassistant/home-assistant:stable
+    image: ghcr.io/home-assistant/home-assistant:stable
     restart: always
     volumes:
       - /tank/containers/home-assistant:/config
@@ -109,7 +118,7 @@ services:
       - "traefik.http.routers.home-assistant.middlewares=secure@file"
 
   www:
-    image: viggy96/resume-website:latest
+    image: ghcr.io/viggy96/resume-website:latest
     init: true
     restart: always
     environment:
@@ -125,7 +134,7 @@ services:
       - "traefik.http.routers.www.middlewares=www-rep,secure@file"
 
   librespeed:
-    image: linuxserver/librespeed:latest
+    image: lscr.io/linuxserver/librespeed:latest
     restart: always
     environment:
       - PUID=33
