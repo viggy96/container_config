@@ -8,7 +8,6 @@ services:
 
   dockwatch:
     image: ghcr.io/notifiarr/dockwatch:latest
-    init: true
     restart: always
     env_file:
       - default.env
