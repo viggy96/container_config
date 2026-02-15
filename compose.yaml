@@ -115,8 +115,6 @@ services:
       - 8123
     env_file:
       - default.env
-    healthcheck:
-      test: curl -k https://localhost:8123 || exit 1
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.home-assistant.loadbalancer.server.port=8123"
