@@ -99,6 +99,8 @@ services:
       - 80:80/tcp
       - 443:443/tcp
       - 443:443/udp
+    healthcheck:
+      test: traefik healthcheck --ping
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.middlewares=private@file"
@@ -113,6 +115,8 @@ services:
       - 8123
     env_file:
       - default.env
+    healthcheck:
+      test: curl -k https://localhost:8123 || exit 1
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.home-assistant.loadbalancer.server.port=8123"
