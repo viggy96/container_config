@@ -24,9 +24,11 @@ services:
       - "traefik.http.routers.dockwatch.middlewares=private@file"
 
   lldap:
-    image: ghcr.io/lldap/lldap:stable
+    image: ghcr.io/lldap/lldap:stable-alpine-rootless
     init: true
     restart: always
+    read_only: true
+    user: "1000:1000"
     networks:
       - default
       - cloud
@@ -50,7 +52,7 @@ services:
     init: true
     restart: always
     read_only: true
-    user: '1000:1000'
+    user: "1000:1000"
     networks:
       - default
       - cloud
@@ -58,6 +60,7 @@ services:
     env_file:
       - default.env
       - ./pocket-id/config.env
+      - ./pocket-id/smtp_pass.env
       - ./pocket-id/ldap_pass.env
     volumes:
       - /tank/containers/pocket-id:/app/data
@@ -88,9 +91,8 @@ services:
     security_opt:
       - no-new-privileges:true
     env_file:
+      - default.env
       - ./traefik/secrets.env
-    environment:
-      - TZ=America/Chicago
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -109,12 +111,12 @@ services:
   home-assistant:
     image: ghcr.io/home-assistant/home-assistant:stable
     restart: always
+    env_file:
+      - default.env
     volumes:
       - /tank/containers/home-assistant:/config
     expose:
       - 8123
-    env_file:
-      - default.env
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.home-assistant.loadbalancer.server.port=8123"
@@ -139,10 +141,9 @@ services:
   librespeed:
     image: lscr.io/linuxserver/librespeed:latest
     restart: always
+    env_file:
+      - default.env
     environment:
-      - PUID=33
-      - PGID=33
-      - TZ=America/Chicago
       - PASSWORD=
     volumes:
       - /tank/containers/librespeed:/config
