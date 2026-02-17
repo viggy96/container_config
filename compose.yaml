@@ -102,7 +102,7 @@ services:
       - 443:443/tcp
       - 443:443/udp
     healthcheck:
-      test: traefik healthcheck --ping
+      test: [ "CMD-SHELL", "traefik healthcheck --ping" ]
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.middlewares=private@file"
