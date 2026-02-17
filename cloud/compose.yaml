@@ -35,6 +35,7 @@ services:
     depends_on:
       - nextcloud-db
       - nextcloud-redis
+      - lldap
 
   nextcloud:
     image: nextcloud:production
@@ -60,6 +61,7 @@ services:
     depends_on:
       - nextcloud-db
       - nextcloud-redis
+      - lldap
     expose:
       - 80
     labels:
@@ -70,3 +72,4 @@ services:
       - "traefik.http.middlewares.nextcloud-rep.redirectregex.replacement=https://$$1/remote.php/dav/"
       - "traefik.http.middlewares.nextcloud-rep.redirectregex.permanent=true"
       - "traefik.http.routers.nextcloud.middlewares=nextcloud-rep,secure@file"
+

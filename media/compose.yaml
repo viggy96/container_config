@@ -25,6 +25,8 @@ services:
       - /tank/cloud/comics:/media/comics
     expose:
       - 8096
+    depends_on:
+      - lldap
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.jellyfin.loadbalancer.server.port=8096"
