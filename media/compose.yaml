@@ -135,6 +135,8 @@ services:
       - /tank/containers/prowlarr:/config
     expose:
       - 9696
+    healthcheck:
+      test: [ "CMD-SHELL", "curl --fail http://localhost:9696/ping" ]
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.prowlarr.loadbalancer.server.port=9696"
