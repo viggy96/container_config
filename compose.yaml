@@ -129,6 +129,8 @@ services:
       - ENV=production
     expose:
       - 443
+    healthcheck:
+      test: [ "CMD-SHELL", "curl --fail http://localhost:443/status" ]
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.www.loadbalancer.server.port=443"

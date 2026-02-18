@@ -157,6 +157,8 @@ services:
       - qbittorrent
       - nzbget
       - prowlarr
+    healthcheck:
+      test: [ "CMD-SHELL", "curl --fail http://localhost:8989/ping" ]
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.sonarr.loadbalancer.server.port=8989"
@@ -179,6 +181,8 @@ services:
       - qbittorrent
       - nzbget
       - prowlarr
+    healthcheck:
+      test: [ "CMD-SHELL", "curl --fail http://localhost:7878/ping" ]
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.radarr.loadbalancer.server.port=7878"
@@ -200,6 +204,8 @@ services:
     depends_on:
       - sonarr
       - radarr
+    healthcheck:
+      test: [ "CMD-SHELL", "curl --fail http://localhost:6767/ping" ]
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.bazarr.loadbalancer.server.port=6767"
@@ -222,6 +228,8 @@ services:
       - qbittorrent
       - nzbget
       - prowlarr
+    healthcheck:
+      test: [ "CMD-SHELL", "curl --fail http://localhost:8686/ping" ]
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.lidarr.loadbalancer.server.port=8686"
@@ -264,6 +272,8 @@ services:
        - /tank/downloads:/downloads
      expose:
        - 25600
+    healthcheck:
+      test: [ "CMD-SHELL", "curl --fail http://localhost:25600/actuator/health" ]
      labels:
        - "traefik.enable=true"
        - "traefik.http.services.komga.loadbalancer.server.port=25600"
