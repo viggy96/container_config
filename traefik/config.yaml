@@ -11,7 +11,6 @@ http:
             ClientId: "${OIDC_CLIENT_ID}"
             ClientSecret: "${OIDC_CLIENT_SECRET}"
           Scopes: ["openid", "profile", "email", "groups"]
-          BypassAuthenticationRule: "PathRegexp(`^/api/.*`)"
 
     oidc-auth-admin:
       plugin:
@@ -24,7 +23,7 @@ http:
             ClientId: "${ADMIN_OIDC_CLIENT_ID}"
             ClientSecret: "${ADMIN_OIDC_CLIENT_SECRET}"
           Scopes: ["openid", "profile", "email", "groups"]
-          BypassAuthenticationRule: "PathRegexp(`^/api/.*`)"
+          BypassAuthenticationRule: "PathRegexp(`^/api/.*`) || PathRegexp(`^/xmlrpc/.*`)"
 
     default-headers:
       headers:
