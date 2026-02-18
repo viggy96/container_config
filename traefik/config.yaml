@@ -23,7 +23,7 @@ http:
             ClientId: "${ADMIN_OIDC_CLIENT_ID}"
             ClientSecret: "${ADMIN_OIDC_CLIENT_SECRET}"
           Scopes: ["openid", "profile", "email", "groups"]
-          BypassAuthenticationRule: "PathRegexp(`^/api/.*`) || PathRegexp(`^/xmlrpc/.*`)"
+          BypassAuthenticationRule: "PathRegexp(`^/api/.*`) || HostRegexp(`^nzbget\\.`) && PathRegexp(`^/.*rpc.*`)"
 
     default-headers:
       headers:
