@@ -258,24 +258,24 @@ services:
       - "traefik.http.routers.kapowarr.middlewares=private@file"
 
   komga:
-     image: ghcr.io/gotson/komga:latest
-     restart: always
-     user: 33:33
-     networks:
-       - media
-     env_file:
-       - ../default.env
-     volumes:
-       - /tank/containers/komga:/config
-       - /tank/cloud/comics:/comics
-       - /tank/cloud/books:/books
-       - /tank/downloads:/downloads
-     expose:
-       - 25600
+    image: ghcr.io/gotson/komga:latest
+    restart: always
+    user: 33:33
+    networks:
+      - media
+    env_file:
+      - ../default.env
+    volumes:
+      - /tank/containers/komga:/config
+      - /tank/cloud/comics:/comics
+      - /tank/cloud/books:/books
+      - /tank/downloads:/downloads
+    expose:
+      - 25600
     healthcheck:
       test: [ "CMD-SHELL", "curl --fail http://localhost:25600/actuator/health" ]
-     labels:
-       - "traefik.enable=true"
-       - "traefik.http.services.komga.loadbalancer.server.port=25600"
-       - "traefik.http.routers.komga.middlewares=secure@file" 
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.komga.loadbalancer.server.port=25600"
+      - "traefik.http.routers.komga.middlewares=secure@file" 
 
