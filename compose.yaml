@@ -60,8 +60,7 @@ services:
     env_file:
       - default.env
       - ./pocket-id/config.env
-      - ./pocket-id/smtp_pass.env
-      - ./pocket-id/ldap_pass.env
+      - ./pocket-id/secrets.env
     volumes:
       - /tank/containers/pocket-id:/app/data
     expose:
