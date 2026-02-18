@@ -13,6 +13,19 @@ http:
           Scopes: ["openid", "profile", "email", "groups"]
           BypassAuthenticationRule: "PathRegexp(`^/api/.*`)"
 
+    oidc-auth-admin:
+      plugin:
+        traefik-oidc-auth:
+          Secret: "${ADMIN_OIDC_SECRET}"
+          SessionCookie:
+            Domain: ".viggy96.me"
+          Provider:
+            Url: "https://id.viggy96.me"
+            ClientId: "${ADMIN_OIDC_CLIENT_ID}"
+            ClientSecret: "${ADMIN_OIDC_CLIENT_SECRET}"
+          Scopes: ["openid", "profile", "email", "groups"]
+          BypassAuthenticationRule: "PathRegexp(`^/api/.*`)"
+
     default-headers:
       headers:
         frameDeny: true
@@ -36,6 +49,12 @@ http:
         middlewares:
           - default-headers
           - oidc-auth
+
+    private-admin:
+      chain:
+        middlewares:
+          - default-headers
+          - oidc-auth-admin
 
     secure:
       chain:

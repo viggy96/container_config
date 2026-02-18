@@ -75,7 +75,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.qbittorrent.loadbalancer.server.port=8080"
-      - "traefik.http.routers.qbittorrent.middlewares=private@file"
+      - "traefik.http.routers.qbittorrent.middlewares=private-admin@file"
       - "traefik.http.routers.qbittorrent.rule=Host(`qbittorrent.viggy96.me`)"
 
   qbittorrent:
@@ -110,7 +110,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.nzbget.loadbalancer.server.port=6789"
-      - "traefik.http.routers.nzbget.middlewares=private@file"
+      - "traefik.http.routers.nzbget.middlewares=private-admin@file"
 
   recyclarr:
     image: ghcr.io/recyclarr/recyclarr:latest
@@ -140,7 +140,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.prowlarr.loadbalancer.server.port=9696"
-      - "traefik.http.routers.prowlarr.middlewares=private@file"
+      - "traefik.http.routers.prowlarr.middlewares=private-admin@file"
 
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
@@ -164,7 +164,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.sonarr.loadbalancer.server.port=8989"
-      - "traefik.http.routers.sonarr.middlewares=private@file"
+      - "traefik.http.routers.sonarr.middlewares=private-admin@file"
 
   radarr:
     image: lscr.io/linuxserver/radarr:latest
@@ -188,7 +188,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.radarr.loadbalancer.server.port=7878"
-      - "traefik.http.routers.radarr.middlewares=private@file"
+      - "traefik.http.routers.radarr.middlewares=private-admin@file"
 
   bazarr:
     image: lscr.io/linuxserver/bazarr:latest
@@ -211,7 +211,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.bazarr.loadbalancer.server.port=6767"
-      - "traefik.http.routers.bazarr.middlewares=private@file"
+      - "traefik.http.routers.bazarr.middlewares=private-admin@file"
 
   lidarr:
     image: lscr.io/linuxserver/lidarr:latest
@@ -235,7 +235,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.lidarr.loadbalancer.server.port=8686"
-      - "traefik.http.routers.lidarr.middlewares=private@file"
+      - "traefik.http.routers.lidarr.middlewares=private-admin@file"
 
   kapowarr:
     image: mrcas/kapowarr:latest
@@ -257,7 +257,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.kapowarr.loadbalancer.server.port=5656"
-      - "traefik.http.routers.kapowarr.middlewares=private@file"
+      - "traefik.http.routers.kapowarr.middlewares=private-admin@file"
 
   komga:
     image: ghcr.io/gotson/komga:latest
