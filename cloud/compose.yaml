@@ -15,7 +15,7 @@ services:
       - ../default.env
       - db.env
     healthcheck:
-      test: [ "CMD", "healthcheck.sh", "--connect", "--innodb_initialized" ]
+      test: [ "CMD", "healthcheck.sh", "--connect" ]
       start_period: 10s
       interval: 10s
       timeout: 5s
