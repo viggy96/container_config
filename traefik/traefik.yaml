@@ -27,7 +27,7 @@ entryPoints:
 providers:
   docker:
     endpoint: "tcp://socket-proxy:2375"
-    network: "default"
+    network: "traefik"
     exposedByDefault: false
     defaultRule: "Host(`{{ index .Labels \"com.docker.compose.service\"}}.viggy96.me`)"
   file:

@@ -10,6 +10,9 @@ services:
     image: lscr.io/linuxserver/socket-proxy:latest
     restart: always
     read_only: true
+    networks:
+      - tugtainer
+      - traefik
     environment:
       - LOG_LEVEL=warning
       - CONTAINERS=1
@@ -30,10 +33,11 @@ services:
   tugtainer:
     image: ghcr.io/quenary/tugtainer:1
     restart: always
+    networks:
+      - tugtainer
     env_file:
-      - default.env
-    environment:
-      - DOCKER_HOST=tcp://socket-proxy:2375
+      - ./tugtainer/config.env
+      - ./tugtainer/secrets.env
     volumes:
       - /tank/containers/tugtainer:/tugtainer
     expose:
@@ -109,6 +113,7 @@ services:
     restart: always
     networks:
       - default
+      - traefik
       - cloud
       - media
     security_opt:
@@ -188,3 +193,7 @@ services:
 networks:
   cloud:
   media:
+  tugtainer:
+    driver: bridge
+  traefik:
+    driver: bridge
