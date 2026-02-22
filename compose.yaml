@@ -11,7 +11,7 @@ services:
     restart: always
     read_only: true
     networks:
-      - tugtainer
+      - tugtainer_docker
     environment:
       - LOG_LEVEL=warning
       - CONTAINERS=1
@@ -33,7 +33,7 @@ services:
     image: ghcr.io/quenary/tugtainer:1
     restart: always
     networks:
-      - tugtainer
+      - tugtainer_docker
     env_file:
       - ./tugtainer/config.env
       - ./tugtainer/secrets.env
@@ -114,6 +114,7 @@ services:
       - default
       - cloud
       - media
+      - traefik_docker
     security_opt:
       - no-new-privileges:true
     env_file:
@@ -121,7 +122,6 @@ services:
       - ./traefik/secrets.env
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./traefik/:/etc/traefik
     ports:
       - 80:80/tcp
@@ -191,5 +191,7 @@ services:
 networks:
   cloud:
   media:
-  tugtainer:
+  tugtainer_docker:
+    driver: bridge
+  traefik_docker:
     driver: bridge
