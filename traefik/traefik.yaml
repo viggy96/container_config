@@ -26,7 +26,8 @@ entryPoints:
 
 providers:
   docker:
-    endpoint: "unix:///var/run/docker.sock"
+    endpoint: "tcp://socket-proxy:2375"
+    network: "default"
     exposedByDefault: false
     defaultRule: "Host(`{{ index .Labels \"com.docker.compose.service\"}}.viggy96.me`)"
   file:

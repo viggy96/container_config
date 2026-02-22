@@ -6,22 +6,46 @@ include:
 name: service
 services:
 
-  dockwatch:
-    image: ghcr.io/notifiarr/dockwatch:develop
+  socket-proxy:
+    image: lscr.io/linuxserver/socket-proxy:latest
+    restart: always
+    read_only: true
+    environment:
+      - LOG_LEVEL=warning
+      - CONTAINERS=1
+      - EVENTS=1
+      - IMAGES=1
+      - INFO=1
+      - PING=1
+      - NETWORKS=1
+      - POST=1
+      - VERSION=1
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    tmpfs:
+      - /run
+    labels:
+      - "dev.quenary.tugtainer.protected=true"
+
+  tugtainer:
+    image: ghcr.io/quenary/tugtainer:1
     restart: always
     env_file:
       - default.env
     environment:
-      - DISABLE_IPV6=1
+      - DOCKER_HOST=tcp://socket-proxy:2375
     volumes:
-      - /tank/containers/dockwatch:/config
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /tank/containers/tugtainer:/tugtainer
     expose:
       - 80
+    depends_on:
+      - socket-proxy
+      - pocket-id
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.dockwatch.loadbalancer.server.port=80" 
-      - "traefik.http.routers.dockwatch.middlewares=private-admin@file"
+      - "traefik.http.routers.dockwatch.middlewares=secure@file"
+      - "dev.quenary.tugtainer.protected=true"
 
   lldap:
     image: ghcr.io/lldap/lldap:stable-alpine-rootless
