@@ -124,6 +124,8 @@ services:
       - 80:80/tcp
       - 443:443/tcp
       - 443:443/udp
+    depends_on:
+      - socket-proxy
     healthcheck:
       test: [ "CMD-SHELL", "traefik healthcheck --ping" ]
     labels:
