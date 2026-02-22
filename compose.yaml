@@ -12,7 +12,6 @@ services:
     read_only: true
     networks:
       - tugtainer
-      - traefik
     environment:
       - LOG_LEVEL=warning
       - CONTAINERS=1
@@ -113,7 +112,6 @@ services:
     restart: always
     networks:
       - default
-      - traefik
       - cloud
       - media
     security_opt:
@@ -194,6 +192,4 @@ networks:
   cloud:
   media:
   tugtainer:
-    driver: bridge
-  traefik:
     driver: bridge
