@@ -11,6 +11,7 @@ services:
     restart: always
     read_only: true
     networks:
+      - traefik_docker
       - tugtainer_docker
     environment:
       - LOG_LEVEL=warning
