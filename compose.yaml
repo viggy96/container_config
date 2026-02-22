@@ -26,8 +26,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     healthcheck:
       test: [ "CMD-SHELL", "wget --no-verbose --spider --tries=1 http://localhost:2375/_ping || exit 1" ]
-      timeout: 5s 
       start_period: 30s
+      timeout: 5s
     tmpfs:
       - /run
     labels:
@@ -47,11 +47,13 @@ services:
     expose:
       - 80
     depends_on:
-      - socket-proxy
-      - pocket-id
+      socket-proxy:
+        condition: service_healthy
+      pocket-id:
+        condition: service_healthy
     labels:
       - "traefik.enable=true"
-      - "traefik.http.services.tugtainer.loadbalancer.server.port=80" 
+      - "traefik.http.services.tugtainer.loadbalancer.server.port=80"
       - "traefik.http.routers.tugtainer.middlewares=secure@file"
       - "dev.quenary.tugtainer.protected=true"
 
@@ -98,13 +100,14 @@ services:
     expose:
       - 1411
     depends_on:
-      - lldap
+      lldap:
+        condition: service_healthy
     healthcheck:
       test: [ "CMD", "/app/pocket-id", "healthcheck" ]
+      start_period: 10s
       interval: 1m30s
       timeout: 5s
       retries: 2
-      start_period: 10s
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.pocket-id.loadbalancer.server.port=1411"
@@ -133,7 +136,8 @@ services:
       - 443:443/tcp
       - 443:443/udp
     depends_on:
-      - socket-proxy
+      socket-proxy:
+        condition: service_healthy
     healthcheck:
       test: [ "CMD-SHELL", "traefik healthcheck --ping" ]
     labels:
@@ -150,8 +154,11 @@ services:
       - /tank/containers/home-assistant:/config
     expose:
       - 8123
+    depends_on:
+      pocket-id:
+        condition: service_healthy
     healthcheck:
-      test: [ "CMD-SHELL", "curl --silent --show-error http://localhost:8123/manifest.json || exit 1" ]
+      test: [ "CMD-SHELL", "curl --silent --show-error --fail http://localhost:8123/manifest.json || exit 1" ]
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.home-assistant.loadbalancer.server.port=8123"
@@ -187,7 +194,7 @@ services:
     expose:
       - 80
     healthcheck:
-      test: [ "CMD-SHELL", "curl --silent --show-error http://localhost:80/ || exit 1" ]
+      test: [ "CMD-SHELL", "curl --silent --show-error --fail http://localhost:80/ || exit 1" ]
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.librespeed.loadbalancer.server.port=80"
@@ -202,4 +209,3 @@ networks:
     driver: bridge
   cloud:
   media:
-

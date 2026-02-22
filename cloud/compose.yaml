@@ -14,6 +14,11 @@ services:
     env_file:
       - ../default.env
       - db.env
+    healthcheck:
+      test: [ "CMD", "healthcheck.sh", "--connect", "--innodb_initialized" ]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
 
   nextcloud-redis:
     image: redis:latest
@@ -21,6 +26,10 @@ services:
     restart: always
     networks:
       - cloud
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 5s
 
   nextcloud-cron:
     image: nextcloud:production
@@ -33,9 +42,10 @@ services:
       - /tank/cloud/nextcloud/data:/var/www/html/data
     entrypoint: /cron.sh
     depends_on:
-      - nextcloud-db
-      - nextcloud-redis
-      - lldap
+      nextcloud-db:
+        condition: service_healthy
+      nextcloud-redis:
+        condition: service_healthy
 
   nextcloud:
     image: nextcloud:production
@@ -59,9 +69,14 @@ services:
       - REDIS_HOST=nextcloud-redis
       - NEXTCLOUD_TABLE_PREFIX='oc_'
     depends_on:
-      - nextcloud-db
-      - nextcloud-redis
-      - lldap
+      nextcloud-db:
+        condition: service_healthy
+      nextcloud-redis:
+        condition: service_healthy
+      lldap:
+        condition: service_healthy
+      pocket-id:
+        condition: service_healthy
     expose:
       - 80
     healthcheck:
@@ -77,4 +92,3 @@ services:
       - "traefik.http.middlewares.nextcloud-rep.redirectregex.replacement=https://$$1/remote.php/dav/"
       - "traefik.http.middlewares.nextcloud-rep.redirectregex.permanent=true"
       - "traefik.http.routers.nextcloud.middlewares=nextcloud-rep,secure@file"
-
