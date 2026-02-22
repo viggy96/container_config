@@ -48,8 +48,8 @@ services:
       - pocket-id
     labels:
       - "traefik.enable=true"
-      - "traefik.http.services.dockwatch.loadbalancer.server.port=80" 
-      - "traefik.http.routers.dockwatch.middlewares=secure@file"
+      - "traefik.http.services.tugtainer.loadbalancer.server.port=80" 
+      - "traefik.http.routers.tugtainer.middlewares=secure@file"
       - "dev.quenary.tugtainer.protected=true"
 
   lldap:
