@@ -150,6 +150,8 @@ services:
       - /tank/containers/home-assistant:/config
     expose:
       - 8123
+    healthcheck:
+      test: [ "CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8123/ || exit 1" ]
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.home-assistant.loadbalancer.server.port=8123"
@@ -185,7 +187,7 @@ services:
     expose:
       - 80
     healthcheck:
-      test: [ "CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:80/ || exit 1" ]
+      test: [ "CMD-SHELL", "curl --silent --show-error http://localhost:80/ || exit 1" ]
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.librespeed.loadbalancer.server.port=80"
