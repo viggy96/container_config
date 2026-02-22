@@ -34,6 +34,7 @@ services:
     image: ghcr.io/quenary/tugtainer:1
     restart: always
     networks:
+      - default
       - tugtainer_docker
     env_file:
       - ./tugtainer/config.env
