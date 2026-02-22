@@ -11,8 +11,7 @@ services:
     restart: always
     read_only: true
     networks:
-      - traefik_docker
-      - tugtainer_docker
+      - docker-socket
     environment:
       - LOG_LEVEL=warning
       - CONTAINERS=1
@@ -25,6 +24,10 @@ services:
       - VERSION=1
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
+    healthcheck:
+      test: [ "CMD-SHELL", "wget --no-verbose --spider --tries=1 http://localhost:2375/_ping || exit 1" ]
+      timeout: 5s 
+      start_period: 30s
     tmpfs:
       - /run
     labels:
@@ -34,8 +37,8 @@ services:
     image: ghcr.io/quenary/tugtainer:1
     restart: always
     networks:
+      - docker-socket
       - default
-      - tugtainer_docker
     env_file:
       - ./tugtainer/config.env
       - ./tugtainer/secrets.env
@@ -113,10 +116,10 @@ services:
     init: true
     restart: always
     networks:
+      - docker-socket
       - default
       - cloud
       - media
-      - traefik_docker
     security_opt:
       - no-new-privileges:true
     env_file:
@@ -181,6 +184,8 @@ services:
       - /tank/containers/librespeed:/config
     expose:
       - 80
+    healthcheck:
+      test: [ "CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:80/ || exit 1" ]
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.librespeed.loadbalancer.server.port=80"
@@ -191,9 +196,8 @@ services:
       - "traefik.http.routers.librespeed.middlewares=librespeed-limit,private@file"
 
 networks:
+  docker-socket:
+    driver: bridge
   cloud:
   media:
-  tugtainer_docker:
-    driver: bridge
-  traefik_docker:
-    driver: bridge
+
