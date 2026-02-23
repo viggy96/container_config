@@ -125,6 +125,8 @@ services:
       - ../default.env
     volumes:
       - /tank/containers/recyclarr:/config
+    healthcheck:
+      test: [ "CMD-SHELL", "recyclarr config list local" ]
 
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
@@ -266,6 +268,8 @@ services:
     depends_on:
       gluetun:
         condition: service_healthy
+    healthcheck:
+      test: [ "CMD-SHELL", "curl --silent --show-error --fail http://localhost:5656/ || exit 1" ]
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.kapowarr.loadbalancer.server.port=5656"
