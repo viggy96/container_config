@@ -62,7 +62,7 @@ services:
     init: true
     restart: always
     read_only: true
-    user: "1000:1000"
+    user: 1000:1000
     networks:
       - default
       - cloud
@@ -86,7 +86,7 @@ services:
     init: true
     restart: always
     read_only: true
-    user: "1000:1000"
+    user: 1000:1000
     networks:
       - default
       - cloud
@@ -184,6 +184,9 @@ services:
   zigbee2mqtt:
     image: ghcr.io/koenkk/zigbee2mqtt:latest
     restart: always
+    user: 1000:1000
+    group_add:
+      - dialout
     env_file:
       - default.env
     volumes:
