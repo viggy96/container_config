@@ -253,7 +253,7 @@ services:
       - "traefik.http.routers.bazarr.middlewares=private-admin@file"
 
   kapowarr:
-    image: mrcas/kapowarr:latest
+    image: docker.io/mrcas/kapowarr:latest
     restart: always
     networks:
       - media
