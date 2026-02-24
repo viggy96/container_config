@@ -31,7 +31,7 @@ services:
     tmpfs:
       - /run
     labels:
-      - "dev.quenary.tugtainer.protected=true"
+      - dev.quenary.tugtainer.protected=true
 
   tugtainer:
     image: ghcr.io/quenary/tugtainer:1
@@ -52,10 +52,10 @@ services:
       pocket-id:
         condition: service_healthy
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.services.tugtainer.loadbalancer.server.port=80"
-      - "traefik.http.routers.tugtainer.middlewares=secure@file"
-      - "dev.quenary.tugtainer.protected=true"
+      - traefik.enable=true
+      - traefik.http.services.tugtainer.loadbalancer.server.port=80
+      - traefik.http.routers.tugtainer.middlewares=secure@file
+      - dev.quenary.tugtainer.protected=true
 
   lldap:
     image: ghcr.io/lldap/lldap:stable-alpine-rootless
@@ -77,9 +77,9 @@ services:
     expose:
       - 17170
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.services.lldap.loadbalancer.server.port=17170"
-      - "traefik.http.routers.lldap.middlewares=private@file"
+      - traefik.enable=true
+      - traefik.http.services.lldap.loadbalancer.server.port=17170
+      - traefik.http.routers.lldap.middlewares=private@file
 
   pocket-id:
     image: ghcr.io/pocket-id/pocket-id:v2-distroless
@@ -109,10 +109,10 @@ services:
       timeout: 5s
       retries: 2
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.services.pocket-id.loadbalancer.server.port=1411"
-      - "traefik.http.routers.pocket-id.middlewares=secure@file"
-      - "traefik.http.routers.pocket-id.rule=Host(`id.viggy96.me`)"
+      - traefik.enable=true
+      - traefik.http.services.pocket-id.loadbalancer.server.port=1411
+      - traefik.http.routers.pocket-id.middlewares=secure@file
+      - traefik.http.routers.pocket-id.rule=Host(`id.viggy96.me`)
 
   traefik:
     image: ghcr.io/traefik/traefik:latest
@@ -142,9 +142,9 @@ services:
     healthcheck:
       test: [ "CMD-SHELL", "traefik healthcheck --ping" ]
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.traefik.middlewares=private-admin@file"
-      - "traefik.http.routers.traefik.service=api@internal"
+      - traefik.enable=true
+      - traefik.http.routers.traefik.middlewares=private-admin@file
+      - traefik.http.routers.traefik.service=api@internal
 
   home-assistant:
     image: ghcr.io/home-assistant/home-assistant:stable
@@ -161,9 +161,9 @@ services:
     healthcheck:
       test: [ "CMD-SHELL", "curl --silent --show-error --fail http://localhost:8123/manifest.json || exit 1" ]
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.services.home-assistant.loadbalancer.server.port=8123"
-      - "traefik.http.routers.home-assistant.middlewares=secure@file"
+      - traefik.enable=true
+      - traefik.http.services.home-assistant.loadbalancer.server.port=8123
+      - traefik.http.routers.home-assistant.middlewares=secure@file
 
   mosquitto:
     image: eclipse-mosquitto:latest
@@ -175,11 +175,11 @@ services:
     expose:
       - 1883
     labels:
-      - "traefik.enable=true"
-      - "traefik.tcp.routers.mqtt.entrypoints=mqtt"
-      - "traefik.tcp.routers.mqtt.tls=true"
-      - "traefik.tcp.routers.mqtt.service=mqtt"
-      - "traefik.tcp.services.mqtt.loadBalancer.server.port=1883"
+      - traefik.enable=true
+      - traefik.tcp.routers.mqtt.entrypoints=mqtt
+      - traefik.tcp.routers.mqtt.tls=true
+      - traefik.tcp.routers.mqtt.service=mqtt
+      - traefik.tcp.services.mqtt.loadBalancer.server.port=1883
 
   zigbee2mqtt:
     image: ghcr.io/koenkk/zigbee2mqtt:latest
@@ -193,9 +193,9 @@ services:
     healthcheck:
       test: [ "CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8080/ || exit 1"]
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.services.zigbee2mqtt.loadbalancer.server.port=8080"
-      - "traefik.http.routers.zigbee2mqtt.middlewares=private-admin@file"
+      - traefik.enable=true
+      - traefik.http.services.zigbee2mqtt.loadbalancer.server.port=8080
+      - traefik.http.routers.zigbee2mqtt.middlewares=private-admin@file
 
   www:
     image: ghcr.io/viggy96/resume-website:latest
@@ -208,12 +208,12 @@ services:
     healthcheck:
       test: [ "CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:443/ || exit 1" ]
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.services.www.loadbalancer.server.port=443"
-      - "traefik.http.middlewares.www-rep.redirectregex.regex=^https://viggy96.me/(.*)"
-      - "traefik.http.middlewares.www-rep.redirectregex.replacement=https://www.viggy96.me/$${1}"
-      - "traefik.http.middlewares.www-rep.redirectregex.permanent=true"
-      - "traefik.http.routers.www.middlewares=www-rep,secure@file"
+      - traefik.enable=true
+      - traefik.http.services.www.loadbalancer.server.port=443
+      - traefik.http.middlewares.www-rep.redirectregex.regex=^https://viggy96.me/(.*)
+      - traefik.http.middlewares.www-rep.redirectregex.replacement=https://www.viggy96.me/$${1}
+      - traefik.http.middlewares.www-rep.redirectregex.permanent=true
+      - traefik.http.routers.www.middlewares=www-rep,secure@file
 
   librespeed:
     image: lscr.io/linuxserver/librespeed:latest
@@ -229,13 +229,13 @@ services:
     healthcheck:
       test: [ "CMD-SHELL", "curl --silent --show-error --fail http://localhost:80/ || exit 1" ]
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.services.librespeed.loadbalancer.server.port=80"
-      - "traefik.http.middlewares.librespeed-limit.buffering.maxRequestBodyBytes=10000000000"
-      - "traefik.http.middlewares.librespeed-limit.buffering.memRequestBodyBytes=10000000000"
-      - "traefik.http.middlewares.librespeed-limit.buffering.maxResponseBodyBytes=10000000000"
-      - "traefik.http.middlewares.librespeed-limit.buffering.memResponseBodyBytes=10000000000"
-      - "traefik.http.routers.librespeed.middlewares=librespeed-limit,private@file"
+      - traefik.enable=true
+      - traefik.http.services.librespeed.loadbalancer.server.port=80
+      - traefik.http.middlewares.librespeed-limit.buffering.maxRequestBodyBytes=10000000000
+      - traefik.http.middlewares.librespeed-limit.buffering.memRequestBodyBytes=10000000000
+      - traefik.http.middlewares.librespeed-limit.buffering.maxResponseBodyBytes=10000000000
+      - traefik.http.middlewares.librespeed-limit.buffering.memResponseBodyBytes=10000000000
+      - traefik.http.routers.librespeed.middlewares=librespeed-limit,private@file
 
 networks:
   docker-socket:

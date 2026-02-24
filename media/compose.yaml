@@ -29,9 +29,9 @@ services:
       lldap:
         condition: service_healthy
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.services.jellyfin.loadbalancer.server.port=8096"
-      - "traefik.http.routers.jellyfin.middlewares=secure@file"
+      - traefik.enable=true
+      - traefik.http.services.jellyfin.loadbalancer.server.port=8096
+      - traefik.http.routers.jellyfin.middlewares=secure@file
 
   seerr:
     image: ghcr.io/seerr-team/seerr:latest
@@ -54,9 +54,9 @@ services:
       timeout: 3s
       interval: 15s
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.services.seerr.loadbalancer.server.port=5055"
-      - "traefik.http.routers.seerr.middlewares=secure@file"
+      - traefik.enable=true
+      - traefik.http.services.seerr.loadbalancer.server.port=5055
+      - traefik.http.routers.seerr.middlewares=secure@file
 
   gluetun:
     image: ghcr.io/qdm12/gluetun:v3
@@ -74,10 +74,10 @@ services:
       - 6881:6881/tcp
       - 6881:6881/udp
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.services.qbittorrent.loadbalancer.server.port=8080"
-      - "traefik.http.routers.qbittorrent.middlewares=private-admin@file"
-      - "traefik.http.routers.qbittorrent.rule=Host(`qbittorrent.viggy96.me`)"
+      - traefik.enable=true
+      - traefik.http.services.qbittorrent.loadbalancer.server.port=8080
+      - traefik.http.routers.qbittorrent.middlewares=private-admin@file
+      - traefik.http.routers.qbittorrent.rule=Host(`qbittorrent.viggy96.me`)
 
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
@@ -110,9 +110,9 @@ services:
     expose:
       - 6789
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.services.nzbget.loadbalancer.server.port=6789"
-      - "traefik.http.routers.nzbget.middlewares=private-admin@file"
+      - traefik.enable=true
+      - traefik.http.services.nzbget.loadbalancer.server.port=6789
+      - traefik.http.routers.nzbget.middlewares=private-admin@file
 
   recyclarr:
     image: ghcr.io/recyclarr/recyclarr:latest
@@ -142,9 +142,9 @@ services:
     healthcheck:
       test: [ "CMD-SHELL", "curl --silent --show-error --fail http://localhost:9696/ping" ]
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.services.prowlarr.loadbalancer.server.port=9696"
-      - "traefik.http.routers.prowlarr.middlewares=private-admin@file"
+      - traefik.enable=true
+      - traefik.http.services.prowlarr.loadbalancer.server.port=9696
+      - traefik.http.routers.prowlarr.middlewares=private-admin@file
 
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
@@ -169,9 +169,9 @@ services:
     healthcheck:
       test: [ "CMD-SHELL", "curl --silent --show-error --fail http://localhost:8989/ping" ]
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.services.sonarr.loadbalancer.server.port=8989"
-      - "traefik.http.routers.sonarr.middlewares=private-admin@file"
+      - traefik.enable=true
+      - traefik.http.services.sonarr.loadbalancer.server.port=8989
+      - traefik.http.routers.sonarr.middlewares=private-admin@file
 
   radarr:
     image: lscr.io/linuxserver/radarr:latest
@@ -196,9 +196,9 @@ services:
     healthcheck:
       test: [ "CMD-SHELL", "curl --silent --show-error --fail http://localhost:7878/ping" ]
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.services.radarr.loadbalancer.server.port=7878"
-      - "traefik.http.routers.radarr.middlewares=private-admin@file"
+      - traefik.enable=true
+      - traefik.http.services.radarr.loadbalancer.server.port=7878
+      - traefik.http.routers.radarr.middlewares=private-admin@file
 
   lidarr:
     image: lscr.io/linuxserver/lidarr:latest
@@ -223,9 +223,9 @@ services:
     healthcheck:
       test: [ "CMD-SHELL", "curl --silent --show-error --fail http://localhost:8686/ping" ]
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.services.lidarr.loadbalancer.server.port=8686"
-      - "traefik.http.routers.lidarr.middlewares=private-admin@file"
+      - traefik.enable=true
+      - traefik.http.services.lidarr.loadbalancer.server.port=8686
+      - traefik.http.routers.lidarr.middlewares=private-admin@file
 
   bazarr:
     image: lscr.io/linuxserver/bazarr:latest
@@ -248,9 +248,9 @@ services:
     healthcheck:
       test: [ "CMD-SHELL", "curl --silent --show-error --fail http://localhost:6767/ping" ]
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.services.bazarr.loadbalancer.server.port=6767"
-      - "traefik.http.routers.bazarr.middlewares=private-admin@file"
+      - traefik.enable=true
+      - traefik.http.services.bazarr.loadbalancer.server.port=6767
+      - traefik.http.routers.bazarr.middlewares=private-admin@file
 
   kapowarr:
     image: docker.io/mrcas/kapowarr:latest
@@ -269,9 +269,9 @@ services:
       gluetun:
         condition: service_healthy
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.services.kapowarr.loadbalancer.server.port=5656"
-      - "traefik.http.routers.kapowarr.middlewares=private-admin@file"
+      - traefik.enable=true
+      - traefik.http.services.kapowarr.loadbalancer.server.port=5656
+      - traefik.http.routers.kapowarr.middlewares=private-admin@file
 
   komga:
     image: ghcr.io/gotson/komga:latest
@@ -291,6 +291,6 @@ services:
     healthcheck:
       test: [ "CMD-SHELL", "curl --silent --show-error --fail http://localhost:25600/actuator/health" ]
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.services.komga.loadbalancer.server.port=25600"
-      - "traefik.http.routers.komga.middlewares=secure@file"
+      - traefik.enable=true
+      - traefik.http.services.komga.loadbalancer.server.port=25600
+      - traefik.http.routers.komga.middlewares=secure@file
