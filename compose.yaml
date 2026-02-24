@@ -155,8 +155,6 @@ services:
     expose:
       - 8123
     depends_on:
-      otbr:
-        condition: service_started
       pocket-id:
         condition: service_healthy
     healthcheck:
