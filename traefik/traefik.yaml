@@ -5,7 +5,7 @@ api:
   debug: true
 
 log:
-  level: INFO 
+  level: INFO
 
 accessLog: true
 
@@ -23,6 +23,8 @@ entryPoints:
     http:
       tls:
         certResolver: letsencrypt
+  mqtt:
+    address: ":8883"
 
 providers:
   docker:

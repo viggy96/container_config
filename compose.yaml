@@ -169,11 +169,16 @@ services:
     restart: always
     security_opt:
       - no-new-privileges:true
-    ports:
-      - 1883:1883
-      - 9001:9001
     volumes:
       - /tank/containers/mosquitto:/mosquitto
+    expose:
+      - 1883
+    labels:
+      - "traefik.enable=true"
+      - "traefik.tcp.routers.mqtt.entrypoints=mqtt"
+      - "traefik.tcp.routers.mqtt.tls=true"
+      - "traefik.tcp.routers.mqtt.service=mqtt"
+      - "traefik.tcp.services.mqtt.loadBalancer.server.port=1883"
 
   zigbee2mqtt:
     image: ghcr.io/koenkk/zigbee2mqtt:latest
