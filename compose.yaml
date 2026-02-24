@@ -174,6 +174,8 @@ services:
       - /tank/containers/mosquitto:/mosquitto
     expose:
       - 1883
+    healthcheck:
+      test: [ "CMD-SHELL", "echo '' | nc 127.0.0.1 8080 || exit 1" ]
     labels:
       - traefik.enable=true
       - traefik.tcp.routers.mqtt.entrypoints=mqtt
