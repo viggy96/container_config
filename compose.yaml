@@ -168,7 +168,6 @@ services:
 
   otbr:
     image: docker.io/bnutzer/otbr-tcp:latest
-    init: true
     privileged: true
     cap_drop:
       - NET_ADMIN
