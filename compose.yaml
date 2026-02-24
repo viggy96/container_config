@@ -166,6 +166,15 @@ services:
       - "traefik.http.services.home-assistant.loadbalancer.server.port=8123"
       - "traefik.http.routers.home-assistant.middlewares=secure@file"
 
+  matter:
+    image: ghcr.io/home-assistant-libs/python-matter-server:stable
+    restart: always
+    network_mode: host
+    security_opt:
+      - apparmor=unconfined
+    volumes:
+      - /tank/containers/matter:/data
+
   otbr:
     image: docker.io/bnutzer/otbr-tcp:latest
     privileged: true
