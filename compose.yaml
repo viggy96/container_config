@@ -155,6 +155,8 @@ services:
     expose:
       - 8123
     depends_on:
+      otbr:
+        condition: service_started
       pocket-id:
         condition: service_healthy
     healthcheck:
@@ -163,6 +165,22 @@ services:
       - "traefik.enable=true"
       - "traefik.http.services.home-assistant.loadbalancer.server.port=8123"
       - "traefik.http.routers.home-assistant.middlewares=secure@file"
+
+  otbr:
+    image: docker.io/bnutzer/otbr-tcp:latest
+    init: true
+    privileged: true
+    cap_drop:
+      - NET_ADMIN
+      - NET_RAW
+    restart: always
+    env_file:
+      - default.env
+    environment:
+      - RCP_HOST=SLZB-MR1.local
+      - OTBR_REST_LISTEN_ADDRESS=127.0.0.1
+    volumes:
+      - /tank/containers/otbr:/var/lib/thread
 
   www:
     image: ghcr.io/viggy96/resume-website:latest
