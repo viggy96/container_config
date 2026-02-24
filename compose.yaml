@@ -164,6 +164,33 @@ services:
       - "traefik.http.services.home-assistant.loadbalancer.server.port=8123"
       - "traefik.http.routers.home-assistant.middlewares=secure@file"
 
+  mosquitto:
+    image: eclipse-mosquitto:latest
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - 1883:1883
+      - 9001:9001
+    volumes:
+      - /tank/containers/mosquitto:/mosquitto
+
+  zigbee2mqtt:
+    image: ghcr.io/koenkk/zigbee2mqtt:latest
+    restart: always
+    env_file:
+      - default.env
+    volumes:
+      - /tank/containers/zigbee2mqtt:/app/data
+    expose:
+      - 8080
+    healthcheck:
+      test: [ "CMD-SHELL", "curl --silent --show-error --fail http://localhost:8080/ || exit 1"]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.zigbee2mqtt.loadbalancer.server.port=8080"
+      - "traefik.http.routers.zigbee2mqtt.middlewares=private-admin@file"
+
   www:
     image: ghcr.io/viggy96/resume-website:latest
     init: true
