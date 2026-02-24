@@ -185,7 +185,7 @@ services:
     expose:
       - 8080
     healthcheck:
-      test: [ "CMD-SHELL", "curl --silent --show-error --fail http://localhost:8080/ || exit 1"]
+      test: [ "CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8080/ || exit 1"]
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.zigbee2mqtt.loadbalancer.server.port=8080"
