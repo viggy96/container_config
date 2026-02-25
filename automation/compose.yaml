@@ -106,8 +106,9 @@ services:
     network_mode: host
     security_opt:
       - apparmor:unconfined
-    volumes:
+    env_file:
       - ../common.env
+    volumes:
       - /tank/containers/matter:/data/
       - /run/dbus:/run/dbus:ro
     depends_on:
