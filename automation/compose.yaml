@@ -18,6 +18,10 @@ services:
         condition: service_healthy
       zigbee2mqtt:
         condition: service_healthy
+      openthread:
+        condition: service_started
+      matter:
+        condition: service_healthy
     healthcheck:
       test: [ "CMD-SHELL", "curl --silent --show-error --fail http://localhost:8123/manifest.json || exit 1" ]
     labels:
