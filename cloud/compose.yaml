@@ -12,7 +12,7 @@ services:
     volumes:
       - /tank/containers/nextcloud-db:/var/lib/mysql
     env_file:
-      - ../default.env
+      - ../common.env
       - db.env
     healthcheck:
       test: [ "CMD", "healthcheck.sh", "--connect" ]
@@ -62,7 +62,7 @@ services:
       - /tank/cloud/books:/books
       - /tank/cloud/comics:/comics
     env_file:
-      - ../default.env
+      - ../common.env
       - db.env
     environment:
       - MYSQL_HOST=nextcloud-db

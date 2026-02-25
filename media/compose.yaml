@@ -9,7 +9,7 @@ services:
     networks:
       - media
     env_file:
-      - ../default.env
+      - ../common.env
     group_add:
       - 44
       - 123
@@ -40,7 +40,7 @@ services:
     networks:
       - media
     env_file:
-      - ../default.env
+      - ../common.env
     volumes:
       - /tank/containers/seerr:/app/config
     expose:
@@ -84,7 +84,8 @@ services:
     restart: always
     network_mode: service:gluetun
     env_file:
-      - ../default.env
+      - ../common.env
+      - ../www-data.env
     environment:
       - UMASK=022
       - WEBUI_PORT=8080
@@ -101,7 +102,8 @@ services:
     networks:
       - media
     env_file:
-      - ../default.env
+      - ../common.env
+      - ../www-data.env
     environment:
       - UMASK=022
     volumes:
@@ -124,7 +126,7 @@ services:
     networks:
       - media
     env_file:
-      - ../default.env
+      - ../commmon.env
     volumes:
       - /tank/containers/recyclarr:/config
     healthcheck:
@@ -154,7 +156,8 @@ services:
     networks:
       - media
     env_file:
-      - ../default.env
+      - ../common.env
+      - ../www-data.env
     volumes:
       - /tank/containers/sonarr:/config
       - /tank/cloud/video/tv:/tv
@@ -181,7 +184,8 @@ services:
     networks:
       - media
     env_file:
-      - ../default.env
+      - ../common.env
+      - ../www-data.env
     volumes:
       - /tank/containers/radarr:/config
       - /tank/cloud/video/movies:/movies
@@ -208,7 +212,8 @@ services:
     networks:
       - media
     env_file:
-      - ../default.env
+      - ../common.env
+      - ../www-data.env
     volumes:
       - /tank/containers/lidarr:/config
       - /tank/cloud/music:/music
@@ -235,7 +240,8 @@ services:
     networks:
       - media
     env_file:
-      - ../default.env
+      - ../common.env
+      - ../www-data.env
     volumes:
       - /tank/containers/bazarr:/config
       - /tank/cloud/video/tv:/tv
@@ -260,7 +266,7 @@ services:
     networks:
       - media
     env_file:
-      - ../default.env
+      - ../common.env
     volumes:
       - /tank/containers/kapowarr:/app/db
       - /tank/cloud/comics:/comics
@@ -282,7 +288,7 @@ services:
     networks:
       - media
     env_file:
-      - ../default.env
+      - ../common.env
     volumes:
       - /tank/containers/komga:/config
       - /tank/cloud/comics:/comics
