@@ -125,6 +125,7 @@ services:
     networks:
       - docker-socket
       - default
+      - automation
       - cloud
       - media
     security_opt:
@@ -196,5 +197,6 @@ services:
 networks:
   docker-socket:
     driver: bridge
+  automation:
   cloud:
   media:

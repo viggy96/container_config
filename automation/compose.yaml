@@ -5,6 +5,8 @@ services:
   home-assistant:
     image: ghcr.io/home-assistant/home-assistant:stable
     restart: always
+    networks:
+      - automation
     env_file:
       - ../common.env
     volumes:
@@ -32,6 +34,8 @@ services:
   mosquitto:
     image: eclipse-mosquitto:latest
     restart: always
+    networks:
+      - automation
     security_opt:
       - no-new-privileges:true
     env_file:
@@ -53,6 +57,8 @@ services:
     image: ghcr.io/koenkk/zigbee2mqtt:latest
     restart: always
     user: 1000:1000
+    networks:
+      - automation
     group_add:
       - dialout
     env_file:
