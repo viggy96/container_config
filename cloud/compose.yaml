@@ -46,6 +46,8 @@ services:
         condition: service_healthy
       nextcloud-redis:
         condition: service_healthy
+    healthcheck:
+      test: [ "CMD-SHELL", "cat /cron.sh || exit 1" ]
 
   nextcloud:
     image: nextcloud:production
@@ -72,6 +74,8 @@ services:
       nextcloud-db:
         condition: service_healthy
       nextcloud-redis:
+        condition: service_healthy
+      nextcloud-cron:
         condition: service_healthy
       lldap:
         condition: service_healthy

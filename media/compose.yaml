@@ -95,6 +95,8 @@ services:
     volumes:
       - /tank/containers/qbittorrent:/config
       - /tank/downloads:/downloads
+    healthcheck:
+      test: [ "CMD-SHELL", "curl --silent --show-error --fail http://localhost:8080 || exit 1" ]
 
   nzbget:
     image: lscr.io/linuxserver/nzbget:latest
