@@ -31,7 +31,7 @@ services:
     security_opt:
       - no-new-privileges:true
     env_file:
-      - common.env
+      - ../common.env
     volumes:
       - /tank/containers/mosquitto:/mosquitto
     expose:
@@ -52,7 +52,7 @@ services:
     group_add:
       - dialout
     env_file:
-      - common.env
+      - ../common.env
     volumes:
       - /tank/containers/zigbee2mqtt:/app/data
     expose:
