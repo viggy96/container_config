@@ -6,7 +6,7 @@ services:
     image: ghcr.io/home-assistant/home-assistant:stable
     restart: always
     env_file:
-      - common.env
+      - ../common.env
     volumes:
       - /tank/containers/home-assistant:/config
     expose:
