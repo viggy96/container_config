@@ -101,15 +101,16 @@ services:
       - /etc/localtime:/etc/localtime:ro
 
   matter:
-    image: ghcr.io/home-assistant-libs/python-matter-server:stable
+    image: ghcr.io/matter-js/matterjs-server:stable
     restart: always
+    read_only: true
     network_mode: host
     security_opt:
       - apparmor:unconfined
     env_file:
       - ../common.env
     volumes:
-      - /tank/containers/matter:/data/
+      - /tank/containers/matter:/data
       - /run/dbus:/run/dbus:ro
     depends_on:
       openthread:
