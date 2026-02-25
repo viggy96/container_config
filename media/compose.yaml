@@ -138,7 +138,7 @@ services:
     networks:
       - media
     env_file:
-      - ../default.env
+      - ../common.env
     volumes:
       - /tank/containers/prowlarr:/config
     expose:
