@@ -1,6 +1,5 @@
-tugtainer/secrets.env
-lldap.env
-pocket-id/secrets.env
-traefik/acme.json
-traefik/secrets.env
+.config/tugtainer/secrets.env
+.config/pocket-id/secrets.env
+.config/traefik/acme.json
+.config/traefik/secrets.env
 media/gluetun.env
