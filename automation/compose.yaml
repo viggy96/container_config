@@ -66,3 +66,50 @@ services:
       - traefik.enable=true
       - traefik.http.services.zigbee2mqtt.loadbalancer.server.port=8080
       - traefik.http.routers.zigbee2mqtt.middlewares=private-admin@file
+
+  openthread:
+    image: ghcr.io/ownbee/hass-otbr-docker:latest
+    restart: always
+    privileged: true
+    network_mode: host
+    dns: 127.0.0.1
+    stdin_open: true
+    tty: true
+    cap_add:
+      - SYS_ADMIN
+      - NET_ADMIN
+      - IPC_LOCK
+    env_file:
+      - ../common.env
+    environment:
+      DEVICE: /tmp/ttyOTBR
+      NETWORK_DEVICE: 192.168.1.20:6638
+      BAUDRATE: 460800
+      FLOW_CONTROL: 0
+      NAT64: 1
+      OTBR_REST_PORT: 8081
+      OTBR_WEB_PORT: 8085
+      OTBR_REST_LISTEN_PORT: 8081
+      AUTOFLASH_FIRMWARE: 0
+      BACKBONE_IF: eno1
+      OTBR_ENABLE: 1
+      FIREWALL: 1
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    volumes:
+      - /tank/containers/openthread:/var/lib/thread
+      - /etc/localtime:/etc/localtime:ro
+
+  matter:
+    image: ghcr.io/home-assistant-libs/python-matter-server:stable
+    restart: always
+    network_mode: host
+    security_opt:
+      - apparmor:unconfined
+    volumes:
+      - ../common.env
+      - /tank/containers/matter:/data/
+      - /run/dbus:/run/dbus:ro
+    depends_on:
+      openthread:
+        condition: service_started
