@@ -126,7 +126,7 @@ services:
     networks:
       - media
     env_file:
-      - ../commmon.env
+      - ../common.env
     volumes:
       - /tank/containers/recyclarr:/config
     healthcheck:
