@@ -42,6 +42,7 @@ services:
     networks:
       - docker-socket
       - default
+      - automation
     env_file:
       - common.env
       - ./.config/tugtainer/config.env
