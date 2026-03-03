@@ -67,7 +67,9 @@ services:
     cap_add:
       - NET_ADMIN
     env_file:
-      - gluetun.env
+      - ../common.env
+      - ../.config/gluetun/config.env
+      - ../.config/gluetun/secrets.env
     expose:
       - 8080
     ports:

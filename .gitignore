@@ -2,4 +2,4 @@
 .config/pocket-id/secrets.env
 .config/traefik/acme.json
 .config/traefik/secrets.env
-media/gluetun.env
+.config/gluetun/secrets.env
