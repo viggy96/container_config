@@ -197,6 +197,7 @@ services:
 
 networks:
   docker-socket:
+    driver: bridge
   automation:
   cloud:
   media:
