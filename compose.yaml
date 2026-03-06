@@ -181,7 +181,7 @@ services:
     environment:
       - PASSWORD=
     volumes:
-      - /tank/containers/librespeed:/config
+      - /tmp/librespeed:/config
     expose:
       - 80
     healthcheck:
