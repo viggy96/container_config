@@ -57,6 +57,7 @@ services:
       - cloud
     volumes:
       - ./nextcloud-apache.conf:/etc/apache2/conf-enabled/nextcloud-apache.conf:ro
+      - /usr/bin/ffmpeg:/usr/bin/ffmpeg:ro
       - /tank/containers/nextcloud:/var/www/html
       - /tank/cloud/nextcloud/data:/var/www/html/data
       - /tank/cloud/video:/video:ro
