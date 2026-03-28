@@ -172,7 +172,7 @@ services:
       - traefik.http.middlewares.www-rep.redirectregex.permanent=true
       - traefik.http.routers.www.middlewares=www-rep,secure@file
 
-  speedtest:
+  librespeed:
     image: ghcr.io/librespeed/speedtest:latest
     restart: always
     env_file:
@@ -187,12 +187,12 @@ services:
       test: [ "CMD-SHELL", "curl --silent --show-error --fail http://localhost:8080/ || exit 1" ] 
     labels:
       - traefik.enable=true
-      - traefik.http.services.speedtest.loadbalancer.server.port=8080
-      - traefik.http.middlewares.speedtest-limit.buffering.maxRequestBodyBytes=10000000000
-      - traefik.http.middlewares.speedtest-limit.buffering.memRequestBodyBytes=10000000000
-      - traefik.http.middlewares.speedtest-limit.buffering.maxResponseBodyBytes=10000000000
-      - traefik.http.middlewares.speedtest-limit.buffering.memResponseBodyBytes=10000000000
-      - traefik.http.routers.speedtest.middlewares=speedtest-limit,private@file
+      - traefik.http.services.librespeed.loadbalancer.server.port=8080
+      - traefik.http.middlewares.librespeed-limit.buffering.maxRequestBodyBytes=10000000000
+      - traefik.http.middlewares.librespeed-limit.buffering.memRequestBodyBytes=10000000000
+      - traefik.http.middlewares.librespeed-limit.buffering.maxResponseBodyBytes=10000000000
+      - traefik.http.middlewares.librespeed-limit.buffering.memResponseBodyBytes=10000000000
+      - traefik.http.routers.librespeed.middlewares=librespeed-limit,private@file
 
 networks:
   docker-socket:
