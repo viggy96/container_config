@@ -9,7 +9,7 @@ http:
           Provider:
             Url: "https://id.viggy96.me"
             ClientId: "${OIDC_CLIENT_ID}"
-			UsePkce: true
+            UsePkce: true
           Scopes: ["openid", "profile", "email", "groups"]
 
     oidc-auth-admin:
@@ -21,7 +21,7 @@ http:
           Provider:
             Url: "https://id.viggy96.me"
             ClientId: "${ADMIN_OIDC_CLIENT_ID}"
-			UsePkce: true
+            UsePkce: true
           Scopes: ["openid", "profile", "email", "groups"]
           BypassAuthenticationRule: "PathRegexp(`^/api/.*`) || HostRegexp(`^nzbget\\.`) && PathRegexp(`^/.*rpc.*`)"
 
