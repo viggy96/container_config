@@ -123,7 +123,7 @@ services:
       - traefik.http.routers.nzbget.middlewares=private-admin@file
 
   recyclarr:
-    image: ghcr.io/recyclarr/recyclarr:latest
+    image: ghcr.io/recyclarr/recyclarr:8
     init: true
     restart: always
     user: 33:33
