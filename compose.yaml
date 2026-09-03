@@ -25,6 +25,12 @@ services:
       - NETWORKS=1
       - POST=1
       - VERSION=1
+      - ALLOW_LOGS=1
+      - ALLOW_START=1
+      - ALLOW_STOP=1
+      - ALLOW_RESTARTS=1
+      - ALLOW_PAUSE=1
+      - ALLOW_UNPAUSE=1
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     healthcheck:
