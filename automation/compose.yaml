@@ -107,7 +107,7 @@ services:
     devices:
       - /dev/net/tun:/dev/net/tun
     volumes:
-      - /tank/containers/openthread:/var/lib/thread
+      - /tank/containers/openthread:/data/thread
       - /etc/localtime:/etc/localtime:ro
 
   matter:
