@@ -22,6 +22,11 @@ entryPoints:
     asDefault: true
     http3: true
     address: ":443"
+    transport:
+      respondingTimeouts:
+        readTimeout: 0s
+        writeTimeout: 0s
+        idleTimeout: 180s
     http:
       tls:
         certResolver: letsencrypt
