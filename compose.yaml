@@ -179,7 +179,7 @@ services:
       - traefik.http.routers.www.middlewares=www-rep,secure@file
 
   librespeed:
-    image: ghcr.io/librespeed/speedtest:latest
+    image: ghcr.io/librespeed/speedtest-go:latest
     restart: always
     env_file:
       - common.env
@@ -194,6 +194,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.services.librespeed.loadbalancer.server.port=8080
+      - traefik.http.services.speedtest.loadbalancer.responseforwarding.flushinterval=-1
       - traefik.http.middlewares.librespeed-limit.buffering.maxRequestBodyBytes=10000000000
       - traefik.http.middlewares.librespeed-limit.buffering.memRequestBodyBytes=10000000000
       - traefik.http.middlewares.librespeed-limit.buffering.maxResponseBodyBytes=10000000000
