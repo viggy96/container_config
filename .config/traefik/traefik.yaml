@@ -33,6 +33,13 @@ entryPoints:
   mqtt:
     address: ":8883"
 
+serversTransport:
+  maxIdleConnsPerHost: 200
+  forwardingTimeouts:
+    dialTimeout: 10s
+    responseHeaderTimeout: 0s
+    idleConnTimeout: 120s
+
 providers:
   docker:
     endpoint: "tcp://socket-proxy:2375"

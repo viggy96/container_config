@@ -1,11 +1,4 @@
 http:
-  serversTransport:
-    maxIdleConnsPerHost: 200
-    forwardingTimeouts:
-      dialTimeout: 10s
-      responseHeaderTimeout: 0s
-      idleConnTimeout: 120s
-
   middlewares:
     oidc-auth:
       plugin:
