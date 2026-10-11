@@ -179,7 +179,7 @@ services:
       - traefik.http.routers.www.middlewares=www-rep,secure@file
 
   librespeed:
-    image: ghcr.io/librespeed/speedtest-go:latest
+    image: ghcr.io/librespeed/speedtest-rust:latest
     restart: always
     env_file:
       - common.env
